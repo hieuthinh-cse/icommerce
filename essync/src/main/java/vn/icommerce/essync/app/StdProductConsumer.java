@@ -6,6 +6,7 @@
 
 package vn.icommerce.essync.app;
 
+import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,17 +14,14 @@ import vn.icommerce.sharedkernel.app.component.SearchEngine;
 import vn.icommerce.sharedkernel.domain.repository.ProductRepository;
 
 /**
- * Standard implementation for the account service.
+ * Standard implementation for the product service.
  *
- * <p>Created on 8/20/19.
- *
- * @author khoanguyenminh
  */
 @Slf4j
 @Component
 public class StdProductConsumer implements ProductConsumer {
 
-  private static final String ACCOUNT_INDEX = "product";
+  private static final String PRODUCT_INDEX = "product";
 
   private final ProductRepository productRepository;
 
@@ -49,11 +47,11 @@ public class StdProductConsumer implements ProductConsumer {
     productRepository
         .findById(productId)
         .ifPresent(product -> searchEngine.index(
-            ACCOUNT_INDEX,
+            PRODUCT_INDEX,
             product.getProductId().toString(),
             product.getUpdatedAt().toInstant().toEpochMilli(),
             product));
 
-    log.info("method: indexById, accountId: {}", productId);
+    log.info("method: indexById, productId: {}", productId);
   }
 }

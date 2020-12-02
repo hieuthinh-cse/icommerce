@@ -2,6 +2,7 @@ package vn.icommerce.sharedkernel.domain.model;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -30,7 +31,7 @@ public class Product {
   @Id
   @Column(name = "product_id", unique = true, nullable = false)
   @Setter(AccessLevel.NONE)
-  private Long productId = Long.sum(700_000_000L, IdGenerator.generate(0L, 99_999_999L));
+  private Long productId = Long.sum(100_000_000L, IdGenerator.generate(0L, 99_999_999L));
 
 //  name, price, brand, colour
 

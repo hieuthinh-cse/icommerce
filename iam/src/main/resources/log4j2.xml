@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+  <Properties>
+    <Property name="IAM_SERVICE">iam</Property>
+    <Property name="console-layout-pattern">%blue{%d{ISO8601}} %highlight{%-5level} %magenta{[${env:IAM_SERVICE},%t, %X{traceId} , %X{spanId} , %X{correlation_id} ]} %C{1.}(%L): - %msg%n</Property>
+  </Properties>
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="${console-layout-pattern}"/>
+    </Console>
+  </Appenders>
+  <Loggers>
+    <Logger name="org.hibernate.stat" level="trace" additivity="false" includeLocation="true">
+      <AppenderRef ref="Console"/>
+    </Logger>
+    <Logger name="org.springframework.transaction" level="trace" additivity="false" includeLocation="true">
+      <AppenderRef ref="Console"/>
+    </Logger>
+    <Logger name="org.springframework.orm.jpa" level="trace" additivity="false" includeLocation="true">
+      <AppenderRef ref="Console"/>
+    </Logger>
+    <Logger name="com.zaxxer.hikari" level="debug" additivity="false" includeLocation="true">
+      <AppenderRef ref="Console"/>
+    </Logger>
+    <Root level="info" includeLocation="true">
+      <AppenderRef ref="Console"/>
+    </Root>
+  </Loggers>
+</Configuration>

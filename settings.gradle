@@ -1,4 +1,5 @@
 include 'icommerce'
+include 'iam'
 include 'outbox'
 include 'essync'
 include 'common'

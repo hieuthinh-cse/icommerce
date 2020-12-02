@@ -8,6 +8,7 @@ import vn.icommerce.common.brave.BraveMarker;
 import vn.icommerce.common.dedup.DeDupMarker;
 import vn.icommerce.common.elasticsearch.ElasticsearchMarker;
 import vn.icommerce.common.jackson.JacksonMarker;
+import vn.icommerce.common.kafka.KafkaMarker;
 import vn.icommerce.common.outbox.OutboxMarker;
 import vn.icommerce.common.springresttemplate.SpringRestTemplateMarker;
 import vn.icommerce.common.springretry.SpringRetryMarker;
@@ -25,6 +26,7 @@ import vn.icommerce.sharedkernel.SharedKernelMarker;
     BraveMarker.class,
     SpringTxMarker.class,
     SpringRestTemplateMarker.class,
+    KafkaMarker.class,
     SharedKernelMarker.class,
     OutboxMarker.class,
     DeDupMarker.class,

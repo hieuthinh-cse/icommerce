@@ -6,7 +6,9 @@ import java.util.Map;
 import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import vn.icommerce.dbtool.service.BuyerEsImportService;
 import vn.icommerce.dbtool.service.EsImportService;
+import vn.icommerce.dbtool.service.ShoppingCartEsImportService;
 
 @Slf4j
 @Component
@@ -14,8 +16,14 @@ public class ElasticsearchImportFromDbCmd extends AbstractElasticsearchCmd {
 
   private final Map<String, EsImportService> esIndexServiceFactory = new HashMap<>();
 
-  public ElasticsearchImportFromDbCmd() {
+  public ElasticsearchImportFromDbCmd(
+      BuyerEsImportService buyerEsImportService,
+      ShoppingCartEsImportService shoppingCartEsImportService
+  ) {
     super(null);
+
+    esIndexServiceFactory.put("buyer", buyerEsImportService);
+    esIndexServiceFactory.put("shopping_cart", shoppingCartEsImportService);
   }
 
   @Override

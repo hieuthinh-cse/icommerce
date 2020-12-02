@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration>
   <Properties>
-    <Property name="IAMESSYNC_SERVICE">iamessync</Property>
-    <Property name="console-layout-pattern">%blue{%d{ISO8601}} %highlight{%-5level} %magenta{[${env:IAMESSYNC_SERVICE},%t, %X{traceId} , %X{spanId} , %X{correlation_id} ]} %C{1.}(%L): - %msg%n</Property>
+    <Property name="ESSYNC_SERVICE">essync</Property>
+    <Property name="console-layout-pattern">%blue{%d{ISO8601}} %highlight{%-5level} %magenta{[${env:ESSYNC_SERVICE},%t, %X{traceId} , %X{spanId} , %X{correlation_id} ]} %C{1.}(%L): - %msg%n</Property>
   </Properties>
   <Appenders>
     <Console name="Console" target="SYSTEM_OUT">

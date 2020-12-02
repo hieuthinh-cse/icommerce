@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration>
   <Properties>
-    <Property name="IAMESSYNC_SERVICE">iamessync</Property>
-    <Property name="console-layout-pattern">[%d{ISO8601_OFFSET_DATE_TIME_HHCMM}] [%level] [${env:IAMESSYNC_SERVICE},%t, %X{traceId} , %X{spanId} , %X{correlation_id} ] [%c{1.}] [%replace{%msg}{\n}{}%ex{separator(#)}]%n</Property>
+    <Property name="ESSYNC_SERVICE">essync</Property>
+    <Property name="console-layout-pattern">[%d{ISO8601_OFFSET_DATE_TIME_HHCMM}] [%level] [${env:ESSYNC_SERVICE},%t, %X{traceId} , %X{spanId} , %X{correlation_id} ] [%c{1.}] [%replace{%msg}{\n}{}%ex{separator(#)}]%n</Property>
   </Properties>
   <Appenders>
     <Console name="Console" target="SYSTEM_OUT">
@@ -10,7 +10,7 @@
     </Console>
   </Appenders>
   <Loggers>
-    <Logger name="vn.senpay" level="info" additivity="false">
+    <Logger name="vn.icommerce" level="info" additivity="false">
       <AppenderRef ref="Console"/>
     </Logger>
     <Root level="warn">
