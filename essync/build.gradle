@@ -1,0 +1,15 @@
+jar {
+    enabled = true
+    archiveClassifier.set('lib')
+}
+
+dependencies {
+    implementation project(':common')
+    implementation project(':sharedkernel')
+
+    implementation 'org.springframework.kafka:spring-kafka'
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'pl.pragmatists:JUnitParams:1.1.1'
+}

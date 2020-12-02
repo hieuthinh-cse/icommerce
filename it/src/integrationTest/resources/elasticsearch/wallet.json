@@ -1,0 +1,24 @@
+{
+  "indexName": "wallet",
+  "indexIdName": "walletId",
+  "records": [
+    {
+      "walletId": "111111111",
+      "walletPhone": "0909090909",
+      "email": "mailtest@sendo.vn",
+      "dob":"1142121600000",
+      "userName": "0909090909",
+      "otpPhone": "0909090909",
+      "walletType": "SELLER",
+      "availableBalance": 100000000,
+      "frozenBalance": 0,
+      "cashBackBalance": 0,
+      "description": "test wallet",
+      "walletStatus": "ACTIVE",
+      "createdAt": "1584954106000",
+      "updatedAt": "1584954106000",
+      "createdBy": "USER",
+      "updatedBy": "USER"
+    }
+  ]
+}

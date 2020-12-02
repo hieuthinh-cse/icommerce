@@ -1,0 +1,15 @@
+bootRun {
+    if (project.hasProperty('args')) {
+        args((project.args as String).split('\\s+'))
+    }
+    if ( project.hasProperty('jvmArgs') ) {
+        jvmArgs project.jvmArgs.split('\\s+')
+    }
+}
+
+dependencies {
+    implementation project(':common')
+    implementation project(':sharedkernel')
+
+    implementation 'org.flywaydb:flyway-core'
+}

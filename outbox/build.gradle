@@ -1,0 +1,13 @@
+jar{
+    enabled = true
+    archiveClassifier.set('lib')
+}
+
+dependencies {
+    implementation project(':common')
+
+    implementation 'org.springframework.kafka:spring-kafka'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'pl.pragmatists:JUnitParams:1.1.1'
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+  <Properties>
+    <Property name="IAM_SERVICE">iam</Property>
+    <Property name="console-layout-pattern">[%d{ISO8601_OFFSET_DATE_TIME_HHCMM}] [%level] [${env:IAM_SERVICE},%t, %X{traceId} , %X{spanId} , %X{correlation_id} ] [%c{1.}] [%replace{%msg}{\n}{}%ex{separator(#)}]%n</Property>
+  </Properties>
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="${console-layout-pattern}"/>
+    </Console>
+  </Appenders>
+  <Loggers>
+    <Logger name="vn.senpay" level="info" additivity="false">
+      <AppenderRef ref="Console"/>
+    </Logger>
+    <Root level="warn">
+      <AppenderRef ref="Console"/>
+    </Root>
+  </Loggers>
+</Configuration>

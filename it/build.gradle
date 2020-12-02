@@ -1,0 +1,23 @@
+bootJar{
+    enabled = false
+}
+
+dependencies {
+    implementation project(':common')
+    implementation project(':sharedkernel')
+
+    implementation project(':icommerce')
+    implementation project(':outbox')
+    implementation project(':essync')
+
+    testImplementation 'org.springframework.kafka:spring-kafka'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.session:spring-session-core'
+    testImplementation 'pl.pragmatists:JUnitParams:1.1.1'
+    testImplementation 'org.testcontainers:postgresql:1.13.0'
+    testImplementation 'org.flywaydb:flyway-core'
+    testImplementation 'org.testcontainers:elasticsearch:1.13.0'
+    testImplementation 'org.testcontainers:kafka:1.13.0'
+}

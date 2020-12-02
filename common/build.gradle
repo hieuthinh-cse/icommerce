@@ -1,0 +1,40 @@
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}
+
+def rawVersion = '2.0.1'
+
+def localEnv = project.hasProperty("isLocal")
+
+def libVersion = localEnv ? "$rawVersion-SNAPSHOT" : rawVersion
+
+version = libVersion
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+    implementation 'org.springframework.cloud:spring-cloud-starter-sleuth:2.2.2.RELEASE'
+    implementation 'org.springframework.kafka:spring-kafka'
+    implementation 'org.springframework.retry:spring-retry'
+    implementation 'com.vladmihalcea:hibernate-types-52:2.9.9'
+    implementation 'org.elasticsearch.client:elasticsearch-rest-high-level-client:7.4.2'
+    implementation 'org.elasticsearch.client:elasticsearch-rest-client:7.4.2'
+    implementation 'org.elasticsearch:elasticsearch:7.4.2'
+
+    runtimeOnly 'com.lmax:disruptor:3.4.2'
+
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'pl.pragmatists:JUnitParams:1.1.1'
+    testImplementation 'org.testcontainers:postgresql:1.13.0'
+    testImplementation 'org.postgresql:postgresql:42.2.10'
+    testImplementation 'org.flywaydb:flyway-core'
+    testImplementation 'org.testcontainers:kafka:1.12.5'
+    testImplementation 'org.springframework.kafka:spring-kafka'
+}

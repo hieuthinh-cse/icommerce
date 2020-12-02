@@ -1,0 +1,8 @@
+include 'icommerce'
+include 'outbox'
+include 'essync'
+include 'common'
+include 'sharedkernel'
+
+include 'dbtool'
+include 'it'

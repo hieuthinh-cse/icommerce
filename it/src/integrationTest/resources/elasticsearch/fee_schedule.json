@@ -1,0 +1,14 @@
+{
+  "indexName": "fee_schedule",
+  "indexIdName": "feeScheduleId",
+  "records": [
+    {
+      "feeScheduleId": "111111111",
+      "name": "fee 01",
+      "createdAt": "1584954106000",
+      "updatedAt": "1584954106000",
+      "createdBy": "USER",
+      "updatedBy": "USER"
+    }
+  ]
+}

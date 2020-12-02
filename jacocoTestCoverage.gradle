@@ -1,0 +1,46 @@
+repositories {
+    jcenter()
+}
+
+apply plugin: 'base'
+apply plugin: 'jacoco'
+
+task jacocoMerge(type: JacocoMerge) {
+    dependsOn subprojects.test, subprojects.integrationTest
+    executionData fileTree(rootDir).include("**/build/jacoco/*.exec")
+}
+
+task jacocoMergeReport(type: JacocoReport) {
+    dependsOn jacocoMerge
+    executionData jacocoMerge.getDestinationFile()
+
+    subprojects.each {
+        sourceSets it.sourceSets.main
+    }
+}
+
+task jacocoTestCoverageVerification(type: JacocoCoverageVerification) {
+    dependsOn jacocoMergeReport
+    executionData jacocoMerge.getDestinationFile()
+
+    subprojects.each {
+        sourceSets it.sourceSets.main
+    }
+
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.0
+            }
+        }
+
+        rule {
+            limit {
+                counter = 'BRANCH'
+                minimum = 0.0
+            }
+        }
+    }
+}
+
+check.dependsOn jacocoTestCoverageVerification
