@@ -2,7 +2,6 @@ package vn.icommerce.essync.app;
 
 /**
  * Standard implementation for the product service.
- *
  */
 public interface ProductConsumer {
 

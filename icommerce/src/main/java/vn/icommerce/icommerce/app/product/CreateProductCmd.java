@@ -25,7 +25,7 @@ public class CreateProductCmd {
   private String productName;
 
   @NotNull
-  @Min(0L)
+  @Min(1L)
   @Max(999999999999L)
   private BigDecimal productPrice;
 }

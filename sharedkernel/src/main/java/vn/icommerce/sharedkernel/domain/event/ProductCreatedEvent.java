@@ -6,6 +6,7 @@
 
 package vn.icommerce.sharedkernel.domain.event;
 
+import java.util.UUID;
 import lombok.Data;
 import lombok.experimental.Accessors;
 

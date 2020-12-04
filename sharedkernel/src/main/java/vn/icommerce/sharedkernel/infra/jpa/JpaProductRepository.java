@@ -1,6 +1,7 @@
 package vn.icommerce.sharedkernel.infra.jpa;
 
 import java.util.Optional;
+import java.util.UUID;
 import javax.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;

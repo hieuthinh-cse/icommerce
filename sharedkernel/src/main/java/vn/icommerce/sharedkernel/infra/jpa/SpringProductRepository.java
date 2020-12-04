@@ -6,6 +6,7 @@
 
 package vn.icommerce.sharedkernel.infra.jpa;
 
+import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import vn.icommerce.sharedkernel.domain.model.Product;
 

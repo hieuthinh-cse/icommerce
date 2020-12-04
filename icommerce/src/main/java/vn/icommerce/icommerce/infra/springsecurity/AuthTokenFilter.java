@@ -1,9 +1,3 @@
-/*
- * Copyright 2019 Sendo company. All Rights Reserved.
- *
- * This software is the proprietary information of Sendo company. Use is subject to license terms.
- */
-
 package vn.icommerce.icommerce.infra.springsecurity;
 
 import io.jsonwebtoken.ExpiredJwtException;
@@ -18,14 +12,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 import vn.icommerce.icommerce.app.component.TokenCryptoEngine;
-import vn.icommerce.sharedkernel.domain.model.AccountToken;
+import vn.icommerce.sharedkernel.domain.model.BuyerToken;
 
 /**
  * This filter perform authentication via token.
- *
- * <p>Created on 11/21/19.
- *
- * @author khoanguyenminh
  */
 public class AuthTokenFilter extends OncePerRequestFilter {
 
@@ -43,9 +33,9 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
   private UsernamePasswordAuthenticationToken createAuth(
       HttpServletRequest request,
-      AccountToken accountToken) {
+      BuyerToken buyerToken) {
     var auth = new UsernamePasswordAuthenticationToken(
-        accountToken,
+        buyerToken,
         null,
         null);
 

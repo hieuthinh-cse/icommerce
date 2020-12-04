@@ -6,8 +6,7 @@
 
 package vn.icommerce.icommerce.app.component;
 
-import vn.icommerce.sharedkernel.domain.model.AccountToken;
-import vn.icommerce.sharedkernel.domain.model.OptToken;
+import vn.icommerce.sharedkernel.domain.model.BuyerToken;
 
 /**
  * Interface to the token cryptography engine.
@@ -21,10 +20,10 @@ public interface TokenCryptoEngine {
   /**
    * Signs the given accountToken.
    *
-   * @param accountToken the accountToken to sign
+   * @param buyerToken the accountToken to sign
    * @return the signed accountToken.
    */
-  String signAccountToken(AccountToken accountToken);
+  String signAccountToken(BuyerToken buyerToken);
 
   /**
    * Verifies the encoded account token.
@@ -32,21 +31,5 @@ public interface TokenCryptoEngine {
    * @param encodedToken encoded token
    * @return account token
    */
-  AccountToken verifyAccountToken(String encodedToken);
-
-  /**
-   * Signs the given operator token.
-   *
-   * @param optToken the token to sign
-   * @return the signed token.
-   */
-  String signOptToken(OptToken optToken);
-
-  /**
-   * Verifies the encoded operator token.
-   *
-   * @param encodedToken encoded token
-   * @return operator token
-   */
-  OptToken verifyOptToken(String encodedToken);
+  BuyerToken verifyAccountToken(String encodedToken);
 }

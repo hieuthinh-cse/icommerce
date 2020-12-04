@@ -30,7 +30,7 @@ import vn.icommerce.common.jackson.JacksonExecutor;
 @EnableWebSecurity
 @EnableJpaAuditing(
     dateTimeProviderRef = "offsetDateTimeProvider")
-@ConfigurationProperties("iam.infra.springsecurity")
+@ConfigurationProperties("icommerce.infra.springsecurity")
 public class SecurityConfig {
 
   /**
@@ -67,24 +67,21 @@ public class SecurityConfig {
         });
   }
 
-  /**
-   * Configures the security for the operator flow.
-   */
   @Configuration
   @Order(SecurityProperties.BASIC_AUTH_ORDER - 9)
-  public static class OperatorSecurityConfig extends WebSecurityConfigurerAdapter {
+  public static class BuyerSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final AuthOptTokenFilter authOptTokenFilter;
+    private final AuthTokenFilter authTokenFilter;
 
     private final ForbiddenRequestHandler forbiddenRequestHandler;
 
     private final UnauthorizedRequestHandler unauthorizedRequestHandler;
 
-    public OperatorSecurityConfig(
+    public BuyerSecurityConfig(
         JwtTokenCryptoEngine jwtTokenCryptoEngine,
         ForbiddenRequestHandler forbiddenRequestHandler,
         UnauthorizedRequestHandler unauthorizedRequestHandler) {
-      this.authOptTokenFilter = new AuthOptTokenFilter(jwtTokenCryptoEngine);
+      this.authTokenFilter = new AuthTokenFilter(jwtTokenCryptoEngine);
       this.forbiddenRequestHandler = forbiddenRequestHandler;
       this.unauthorizedRequestHandler = unauthorizedRequestHandler;
     }
@@ -92,33 +89,56 @@ public class SecurityConfig {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
       http
-          .antMatcher("/v?/opt/**")
+          .antMatcher("/v?/**")
           .authorizeRequests()
-
-          .antMatchers(HttpMethod.GET, "/v?/opt/merchants/**")
-          .hasAuthority("REA_MER")
-
-          .antMatchers(HttpMethod.POST, "/v?/opt/merchants/**")
-          .hasAuthority("WRI_MER")
-
-          .antMatchers(HttpMethod.PUT, "/v?/opt/merchants/**/lock", "/v?/opt/merchants/**/unlock")
-          .hasAuthority("LOC_MER")
-
-          .antMatchers(HttpMethod.PUT, "/v?/opt/merchants/**/delete")
-          .hasAuthority("DEL_MER")
-
-          .antMatchers(HttpMethod.PUT, "/v?/opt/merchants/**")
-          .hasAuthority("WRI_MER")
-
-          .antMatchers(HttpMethod.GET, "/v?/opt/accounts/**")
-          .hasAuthority("REA_ACC")
-
+          .antMatchers(
+              "/v?/products")
+          .permitAll()
+          .antMatchers(HttpMethod.GET, "/v?/me/**")
+          .authenticated()
+          .antMatchers(HttpMethod.POST, "/v?/me/carts/**")
+          .authenticated()
+          .anyRequest().denyAll()
           .and()
           .exceptionHandling()
           .accessDeniedHandler(forbiddenRequestHandler)
           .authenticationEntryPoint(unauthorizedRequestHandler)
           .and()
-          .addFilterBefore(authOptTokenFilter, UsernamePasswordAuthenticationFilter.class)
+          .addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class)
+          .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+          .and()
+          .cors().disable().csrf().disable();
+    }
+  }
+
+  /**
+   * Configures the security for the internal flow.
+   */
+  @Configuration
+  @Order(SecurityProperties.BASIC_AUTH_ORDER - 10)
+  public static class InternalSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private final AuthApiKeyFilter authApiKeyFilter;
+
+    private final UnauthorizedRequestHandler unauthorizedRequestHandler;
+
+    public InternalSecurityConfig(
+        SecurityConfig securityConfig,
+        UnauthorizedRequestHandler unauthorizedRequestHandler) {
+      this.authApiKeyFilter = new AuthApiKeyFilter(securityConfig.apiKeysStoreAsMap());
+      this.unauthorizedRequestHandler = unauthorizedRequestHandler;
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+      http
+          .antMatcher("/v?/internal/**")
+          .authorizeRequests()
+          .anyRequest().authenticated()
+          .and()
+          .exceptionHandling().authenticationEntryPoint(unauthorizedRequestHandler)
+          .and()
+          .addFilterBefore(authApiKeyFilter, UsernamePasswordAuthenticationFilter.class)
           .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
           .and()
           .cors().disable().csrf().disable();
@@ -170,22 +190,22 @@ public class SecurityConfig {
 
   }
 
-    /**
-     * Configures no security in case of local development.
-     */
-    @Profile("local")
-    @Configuration
-    @Order(SecurityProperties.BASIC_AUTH_ORDER - 100)
-    public static class NoOpSecurityConfig extends WebSecurityConfigurerAdapter {
-
-      @Override
-      protected void configure(HttpSecurity http) throws Exception {
-        http
-            .requestMatchers()
-            .and()
-            .authorizeRequests().anyRequest().permitAll()
-            .and()
-            .cors().disable().csrf().disable();
-      }
-    }
+//    /**
+//     * Configures no security in case of local development.
+//     */
+//    @Profile("local")
+//    @Configuration
+//    @Order(SecurityProperties.BASIC_AUTH_ORDER - 100)
+//    public static class NoOpSecurityConfig extends WebSecurityConfigurerAdapter {
+//
+//      @Override
+//      protected void configure(HttpSecurity http) throws Exception {
+//        http
+//            .requestMatchers()
+//            .and()
+//            .authorizeRequests().anyRequest().permitAll()
+//            .and()
+//            .cors().disable().csrf().disable();
+//      }
+//    }
 }

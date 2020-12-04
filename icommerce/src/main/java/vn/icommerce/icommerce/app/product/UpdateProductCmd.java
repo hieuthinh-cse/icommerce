@@ -7,6 +7,7 @@
 package vn.icommerce.icommerce.app.product;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;

@@ -9,12 +9,9 @@ package vn.icommerce.icommerce.infra.springsecurity;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
 import org.springframework.stereotype.Component;
 import vn.icommerce.icommerce.app.component.TokenCryptoEngine;
-import vn.icommerce.sharedkernel.domain.model.AccountToken;
-import vn.icommerce.sharedkernel.domain.model.OptToken;
+import vn.icommerce.sharedkernel.domain.model.BuyerToken;
 
 /**
  * Implementation that use JWT to sign the token.
@@ -37,55 +34,26 @@ public class JwtTokenCryptoEngine implements TokenCryptoEngine {
   }
 
   @Override
-  public String signAccountToken(AccountToken accountToken) {
+  public String signAccountToken(BuyerToken buyerToken) {
     return Jwts
         .builder()
         .signWith(SignatureAlgorithm.HS512, securityConfig.getJwtKey())
-        .setSubject(accountToken.getAccountId().toString())
-        .setId(accountToken.getSessionId())
-        .setExpiration(Date.from(accountToken.getExpiredAt().toInstant()))
+        .setSubject(buyerToken.getBuyerId().toString())
+        .setId(buyerToken.getSessionId())
+        .setExpiration(Date.from(buyerToken.getExpiredAt().toInstant()))
         .compact();
   }
 
   @Override
-  public AccountToken verifyAccountToken(String encodedToken) {
+  public BuyerToken verifyAccountToken(String encodedToken) {
     var claims = Jwts
         .parser()
         .setSigningKey(securityConfig.getJwtKey())
         .parseClaimsJws(encodedToken)
         .getBody();
 
-    return new AccountToken()
-        .setAccountId(Long.valueOf(claims.getSubject()))
+    return new BuyerToken()
+        .setBuyerId(Long.valueOf(claims.getSubject()))
         .setSessionId(claims.getId());
-  }
-
-  @Override
-  public String signOptToken(OptToken optToken) {
-    return Jwts
-        .builder()
-        .signWith(SignatureAlgorithm.HS512, securityConfig.getJwtKey())
-        .setSubject(optToken.getEmail())
-        .setExpiration(Date.from(optToken.getExpiredAt().toInstant()))
-        .claim(ROLE_KEY, optToken.getRole())
-        .claim(PRIVILEGE_KEY, optToken.getPrivilegeSet())
-        .compact();
-  }
-
-  @Override
-  public OptToken verifyOptToken(String encodedToken) {
-    var claims = Jwts
-        .parser()
-        .setSigningKey(securityConfig.getJwtKey())
-        .parseClaimsJws(encodedToken)
-        .getBody();
-
-    @SuppressWarnings("unchecked")
-    var privilegeSet = new HashSet<String>(claims.get(PRIVILEGE_KEY, List.class));
-
-    return new OptToken()
-        .setEmail(claims.getSubject())
-        .setRole(claims.get(ROLE_KEY, String.class))
-        .setPrivilegeSet(privilegeSet);
   }
 }

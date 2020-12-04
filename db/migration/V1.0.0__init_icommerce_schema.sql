@@ -12,14 +12,37 @@ CREATE TABLE product
 
 CREATE TABLE buyer
 (
-    buyer_id      UUID PRIMARY KEY,
+    buyer_id      BIGINT PRIMARY KEY,
     email         VARCHAR(320) NOT NULL,
     password      CHAR(96)     NOT NULL,
     buyer_name    TEXT         NOT NULL,
+    status        TEXT         NOT NULL,
     created_at    TIMESTAMPTZ  NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at    TIMESTAMPTZ  NOT NULL DEFAULT CURRENT_TIMESTAMP,
     created_by    TEXT         NOT NULL,
     updated_by    TEXT         NOT NULL
+);
+
+CREATE UNIQUE INDEX email_unique_idx on buyer (LOWER(email));
+
+CREATE TABLE shopping_cart
+(
+    shopping_cart_id      BIGINT PRIMARY KEY,
+    buyer_id              BIGINT NOT NULL,
+    status                TEXT        NOT NULL,
+    created_at            TIMESTAMPTZ  NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at            TIMESTAMPTZ  NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE shopping_cart_item
+(
+    shopping_cart_item_id      UUID PRIMARY KEY,
+    shopping_cart_id      BIGINT NOT NULL,
+    quantity              INT NOT NULL,
+    product_id            BIGINT NOT NULL,
+    price                 DECIMAL NOT NULL DEFAULT 0,
+    created_at            TIMESTAMPTZ  NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at            TIMESTAMPTZ  NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE role
@@ -31,23 +54,6 @@ CREATE TABLE role
     created_by  TEXT        NOT NULL,
     updated_by  TEXT        NOT NULL
 );
-
-CREATE TABLE account
-(
-    account_id    UUID PRIMARY KEY,
-    email         VARCHAR(320) NOT NULL,
-    password      CHAR(96)     NOT NULL,
-    account_name  TEXT         NOT NULL,
-    role_name     CHAR(3)      NOT NULL,
-    created_at    TIMESTAMPTZ  NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at    TIMESTAMPTZ  NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    created_by    TEXT         NOT NULL,
-    updated_by    TEXT         NOT NULL,
-
-    FOREIGN KEY (role_name) REFERENCES role (role_name) ON DELETE CASCADE
-);
-
-CREATE UNIQUE INDEX email_unique_idx on account (LOWER(email));
 
 CREATE TABLE privilege
 (

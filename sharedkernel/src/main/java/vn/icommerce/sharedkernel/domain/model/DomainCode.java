@@ -24,7 +24,10 @@ public enum DomainCode {
   FORBIDDEN(403_000, "Forbidden"),
 
   // 404xxx is for resource not found exception
-  PRODUCT_NOT_FOUND(404_000, "Account %s not found"),
+  BUYER_NOT_FOUND(404_000, "Buyer %s not found"),
+  PRODUCT_NOT_FOUND(404_001, "Product %s not found"),
+  PROCESSING_CART_NOT_FOUND(404_002, "Buyer %s not found"),
+  INVALID_CREDENTIALS(404_003, "Credentials %s with its password is invalid"),
 
   // 405xxx is for unsupported http request method
   HTTP_REQUEST_METHOD_NOT_SUPPORTED(405_000, "Http request method not supported"),
@@ -33,6 +36,7 @@ public enum DomainCode {
   SEARCH_REQUEST(406_013, "Failed to search with query %s. Reason: %s"),
 
   // 409xxx is for resource modification conflict
+  BUYER_EXISTING(409_000, "Account %s already exists"),
 
   // 415xxx is for unsupported media type error
   HTTP_MEDIA_TYPE_NOT_SUPPORTED(415_000, "Http media type not supported"),
