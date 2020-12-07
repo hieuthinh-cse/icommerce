@@ -1,9 +1,3 @@
-/*
- * Copyright 2019 Sendo company. All Rights Reserved.
- *
- * This software is the proprietary information of Sendo company. Use is subject to license terms.
- */
-
 package vn.icommerce.icommerce.infra.rest;
 
 import static vn.icommerce.sharedkernel.domain.model.DomainCode.REQUEST_PROCESSED_SUCCESSFULLY;
@@ -20,16 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import vn.icommerce.icommerce.app.product.QueryProductAppService;
 import vn.icommerce.sharedkernel.app.component.Query;
 
-/**
- * This controller provides the {@code Request} manipulation API.
- *
- * <p>Created on 10/31/19.
- *
- * @author thinh.nguyenhieu
- */
-@Api(tags = "operator request")
+@Api(tags = "buyer products")
 @RestController
-public class OptQueryRequestController {
+public class BuyerQueryProductController {
 
   private final QueryProductAppService queryProductAppService;
 
@@ -38,7 +25,7 @@ public class OptQueryRequestController {
   /**
    * Constructor to inject dependent fields.
    */
-  public OptQueryRequestController(
+  public BuyerQueryProductController(
       QueryProductAppService queryProductAppService,
       MessageSource messageSource
   ) {
@@ -47,14 +34,14 @@ public class OptQueryRequestController {
   }
 
   /**
-   * Search the requests matching the given query condition.
+   * Search the products matching the given query condition.
    *
-   * @param query the query having info to search the logs
+   * @param query the query having info to search the products
    * @return the API response.
    */
-  @ApiOperation(value = "Search requests")
+  @ApiOperation(value = "Search products")
   @ApiResponses(@ApiResponse(code = 200, message = "OK", response = ApiResp.class))
-  @GetMapping("/v1/opt/products")
+  @GetMapping("/v1/products")
   public ApiResp searchRequests(@Validated Query query, Locale locale) {
     return new ApiResp()
         .setCode(REQUEST_PROCESSED_SUCCESSFULLY.value())

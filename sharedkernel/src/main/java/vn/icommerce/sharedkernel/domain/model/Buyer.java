@@ -30,7 +30,7 @@ import vn.icommerce.sharedkernel.app.generator.IdGenerator;
 @Getter
 @Setter
 @EqualsAndHashCode(of = "buyerId")
-@ToString(exclude = "password")
+//@ToString(exclude = "password")
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "buyer")
@@ -41,12 +41,19 @@ public class Buyer {
   @Setter(AccessLevel.NONE)
   private Long buyerId = Long.sum(300_000_000L, IdGenerator.generate(0L, 99_999_999L));
 
+  @Column(name = "social_id")
+  private String socialId;
+
+  @Enumerated(EnumType.STRING)
+  @Column(name = "social_platform")
+  private SocialPlatform platform;
+
   @Column(name = "email", nullable = false, updatable = false, unique = true)
   private String email;
 
-  @Column(name = "password", length = 60, nullable = false)
-  @JsonIgnore
-  private String password;
+//  @Column(name = "password", length = 60)
+//  @JsonIgnore
+//  private String password;
 
   @Column(name = "buyer_name", nullable = false)
   private String accountName;

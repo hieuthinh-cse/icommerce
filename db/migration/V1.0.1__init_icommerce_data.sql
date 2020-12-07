@@ -19,10 +19,10 @@ INSERT INTO product (product_id,product_name,product_price,product_status,create
 VALUES	 (100000927,'string',0,NULL,'2020-12-04 17:14:30.286','2020-12-04 17:14:30.340',NULL,NULL);
 
 -- buyer
-INSERT INTO buyer (buyer_id,email,"password",buyer_name,status,created_by,updated_by)
-VALUES
-	 (330263927,'abc@xyz.com','$argon2id$v=19$m=4096,t=3,p=1$MiQzNYNKSAU/a8KounlPlQ$NsKedzaiT7XGYLVgtHgBQ/YThgEougliIvovZPWNMAg','string','ACTIVE','System','System');
-
--- shopping_cart
-INSERT INTO shopping_cart (shopping_cart_id,buyer_id,status) VALUES
-	 (866385412,330263927,'PROCESSING');
+-- INSERT INTO buyer (buyer_id,email,"password",buyer_name,status,created_by,updated_by)
+-- VALUES
+-- 	 (330263927,'abc@xyz.com','$argon2id$v=19$m=4096,t=3,p=1$MiQzNYNKSAU/a8KounlPlQ$NsKedzaiT7XGYLVgtHgBQ/YThgEougliIvovZPWNMAg','string','ACTIVE','System','System');
+--
+-- -- shopping_cart
+-- INSERT INTO shopping_cart (shopping_cart_id,buyer_id,status) VALUES
+-- 	 (866385412,330263927,'PROCESSING');

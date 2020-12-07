@@ -5,6 +5,8 @@ package vn.icommerce.icommerce.app.component;
  */
 public interface BuyerInfoHolder {
 
+  Boolean isLogin();
+
   Long getBuyerId();
 
   String getSessionId();

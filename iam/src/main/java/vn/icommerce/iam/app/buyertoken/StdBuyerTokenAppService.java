@@ -3,14 +3,16 @@ package vn.icommerce.iam.app.buyertoken;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import vn.icommerce.iam.app.component.Encoder;
+import vn.icommerce.iam.app.buyer.BuyerAppService;
+import vn.icommerce.iam.app.buyer.CreateBuyerCmd;
+import vn.icommerce.iam.app.component.SocialGateway;
 import vn.icommerce.iam.app.component.TokenCryptoEngine;
-import vn.icommerce.sharedkernel.app.component.OutboxEngine;
 import vn.icommerce.sharedkernel.app.component.TxManager;
 import vn.icommerce.sharedkernel.domain.exception.DomainException;
 import vn.icommerce.sharedkernel.domain.model.Buyer;
 import vn.icommerce.sharedkernel.domain.model.BuyerToken;
 import vn.icommerce.sharedkernel.domain.model.DomainCode;
+import vn.icommerce.sharedkernel.domain.model.SocialPlatform;
 import vn.icommerce.sharedkernel.domain.repository.BuyerRepository;
 
 /**
@@ -22,9 +24,11 @@ public class StdBuyerTokenAppService implements BuyerTokenAppService {
 
   private final BuyerRepository buyerRepository;
 
-  private final TxManager txManager;
+  private final BuyerAppService buyerAppService;
 
-  private final Encoder encoder;
+  private final SocialGateway socialGateway;
+
+  private final TxManager txManager;
 
   private final TokenCryptoEngine tokenCryptoEngine;
 
@@ -36,48 +40,49 @@ public class StdBuyerTokenAppService implements BuyerTokenAppService {
   StdBuyerTokenAppService(
       @Value("#{tokenConfig.expirationInS}") long tokenExpirationInS,
       BuyerRepository buyerRepository,
+      BuyerAppService buyerAppService,
       TokenCryptoEngine tokenCryptoEngine,
       TxManager txManager,
-      Encoder encoder,
-      OutboxEngine outboxEngine
-  ) {
-    this.encoder = encoder;
+      SocialGateway socialGateway) {
+    this.buyerAppService = buyerAppService;
     this.tokenExpirationInS = tokenExpirationInS;
     this.buyerRepository = buyerRepository;
     this.tokenCryptoEngine = tokenCryptoEngine;
     this.txManager = txManager;
+    this.socialGateway = socialGateway;
   }
 
-  private Buyer getAccountInfo(String email, String password) {
-    var buyer = buyerRepository
-        .findByEmail(email)
-//        .filter(Buyer::active)
-        .orElseThrow(() -> new DomainException(DomainCode.INVALID_CREDENTIALS, email));
+  private String createSocialToken(Long buyerId) {
+    var buyerToken = new BuyerToken()
+        .setBuyerId(buyerId)
+        .setExpirationDuration(tokenExpirationInS);
 
-    if (!encoder.matches(password, buyer.getPassword())) {
-      throw new DomainException(DomainCode.INVALID_CREDENTIALS, email);
-    }
-
-
-    return buyer;
+    return tokenCryptoEngine.signBuyerToken(buyerToken);
   }
 
   @Override
   public String create(CreateBuyerTokenCmd cmd) {
-    log.info("method: create, email: {}", cmd.getEmail());
+    log.info("method: create, cmd: {}", cmd);
 
-    String token = txManager.doInTx(() -> {
-      var buyer = getAccountInfo(cmd.getEmail(), cmd.getPassword());
+    return txManager.doInTx(() -> {
+      var facebookUser = socialGateway.getUser(cmd.getFbAccessToken());
 
-      var buyerToken = new BuyerToken()
-          .setBuyerId(buyer.getBuyerId())
-          .setExpirationDuration(tokenExpirationInS);
+      return buyerRepository.findByEmail(facebookUser.getEmail())
+          .or(() -> {
+            var command = new CreateBuyerCmd()
+                .setEmail(facebookUser.getEmail())
+                .setSocialId(facebookUser.getId())
+                .setSocialPlatform(SocialPlatform.FACEBOOK)
+                .setBuyerName(facebookUser.getFullName());
 
-      return tokenCryptoEngine.signBuyerToken(buyerToken);
+            var buyerId = buyerAppService.create(command);
+
+            return buyerRepository.findById(buyerId);
+          })
+          .map(Buyer::getBuyerId)
+          .map(this::createSocialToken)
+          .orElseThrow(() ->
+              new DomainException(DomainCode.SOCIAL_LOGIN_FAILED));
     });
-
-    log.info("method: create");
-
-    return token;
   }
 }

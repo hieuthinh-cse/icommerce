@@ -33,7 +33,14 @@ public enum DomainCode {
   HTTP_REQUEST_METHOD_NOT_SUPPORTED(405_000, "Http request method not supported"),
 
   // 406xxx is for calling external service error
+  SOCIAL_LOGIN_FAILED(406_001, "Failed to unable to login Facebook"),
+  INVALID_SOCIAL_APP(406_002, "Social app %s is invalid"),
   SEARCH_REQUEST(406_013, "Failed to search with query %s. Reason: %s"),
+  EXTERNAL_SVC_RESPONSE_ERROR(406_028, "Error when calling %s. Reason: %s. Error data: %s"),
+  EXTERNAL_SVC_CONNECTION_ERROR(406_029, "Error when connecting to %s. Reason: %s"),
+  EXTERNAL_SVC_INTERRUPTION_ERROR(406_030, "Error when processing %s. Reason: %s"),
+  EXTERNAL_SVC_EMPTY_RESPONSE_ERROR(406_031, "Received empty response body from %s"),
+
 
   // 409xxx is for resource modification conflict
   BUYER_EXISTING(409_000, "Account %s already exists"),
