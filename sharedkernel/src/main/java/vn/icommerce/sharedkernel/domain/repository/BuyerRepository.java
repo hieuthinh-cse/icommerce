@@ -47,4 +47,6 @@ public interface BuyerRepository {
    * @return the account if found
    */
   Optional<Buyer> findById(Long buyerId);
+
+  Optional<Buyer> findBySocialId(String socialId);
 }

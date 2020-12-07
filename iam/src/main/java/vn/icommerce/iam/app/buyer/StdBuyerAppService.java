@@ -2,7 +2,9 @@ package vn.icommerce.iam.app.buyer;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import vn.icommerce.iam.app.buyertoken.BuyerTokenAppService;
 import vn.icommerce.iam.app.component.Encoder;
+import vn.icommerce.iam.app.component.SocialGateway;
 import vn.icommerce.sharedkernel.app.component.OutboxEngine;
 import vn.icommerce.sharedkernel.app.component.TxManager;
 import vn.icommerce.sharedkernel.domain.event.BuyerCreatedEvent;
@@ -25,8 +27,6 @@ public class StdBuyerAppService implements BuyerAppService {
 
   private final BuyerRepository buyerRepository;
 
-  private final Encoder encoder;
-
   private final TxManager txManager;
 
   private final OutboxEngine outboxEngine;
@@ -34,19 +34,16 @@ public class StdBuyerAppService implements BuyerAppService {
   /**
    * Constructor to inject dependencies.
    *
-   * @param buyerRepository ...
-   * @param encoder         ...
-   * @param txManager       ...
-   * @param outboxEngine    ...
+   * @param buyerRepository      ...
+   * @param txManager            ...
+   * @param outboxEngine         ...
    */
   StdBuyerAppService(
       BuyerRepository buyerRepository,
-      Encoder encoder,
       TxManager txManager,
       OutboxEngine outboxEngine
   ) {
     this.buyerRepository = buyerRepository;
-    this.encoder = encoder;
     this.txManager = txManager;
     this.outboxEngine = outboxEngine;
   }
@@ -61,28 +58,36 @@ public class StdBuyerAppService implements BuyerAppService {
   public Long create(CreateBuyerCmd cmd) {
     log.info("method: create, cmd: {}", cmd);
 
-    var encodedPassword = encoder.encode(cmd.getPassword());
-
     var lowerCasedEmail = cmd.getEmail().toLowerCase();
 
-    var buyer = new Buyer()
-        .setEmail(lowerCasedEmail)
-        .setPassword(encodedPassword)
-        .setAccountName(cmd.getBuyerName())
-        .setStatus(BuyerStatus.ACTIVE);
-
-    txManager.doInTx(() -> {
+    var buyerId = txManager.doInTx(() -> {
       requireNonExistingEmail(lowerCasedEmail);
+
+      var buyer = new Buyer()
+          .setEmail(lowerCasedEmail)
+          .setSocialId(cmd.getSocialId())
+          .setPlatform(cmd.getSocialPlatform())
+          .setAccountName(cmd.getBuyerName())
+          .setStatus(BuyerStatus.ACTIVE);
+
+      buyerRepository.create(buyer);
+      outboxEngine.create(
+          new BuyerCreatedEvent()
+              .setBuyerId(buyer.getBuyerId()));
 
       buyerRepository.create(buyer);
 
       outboxEngine.create(
           new BuyerCreatedEvent()
               .setBuyerId(buyer.getBuyerId()));
+
+      return buyer.getBuyerId();
     });
 
-    log.info("method: create, buyerId: {}", buyer.getBuyerId());
+    log.info("method: create, buyerId: {}", buyerId);
 
-    return buyer.getBuyerId();
+    return buyerId;
   }
+
+
 }

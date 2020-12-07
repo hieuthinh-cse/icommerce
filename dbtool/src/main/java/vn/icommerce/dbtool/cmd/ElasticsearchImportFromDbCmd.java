@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import vn.icommerce.dbtool.service.BuyerEsImportService;
 import vn.icommerce.dbtool.service.EsImportService;
+import vn.icommerce.dbtool.service.ProductEsImportService;
 import vn.icommerce.dbtool.service.ShoppingCartEsImportService;
 
 @Slf4j
@@ -18,12 +19,14 @@ public class ElasticsearchImportFromDbCmd extends AbstractElasticsearchCmd {
 
   public ElasticsearchImportFromDbCmd(
       BuyerEsImportService buyerEsImportService,
-      ShoppingCartEsImportService shoppingCartEsImportService
+      ShoppingCartEsImportService shoppingCartEsImportService,
+      ProductEsImportService productEsImportService
   ) {
     super(null);
 
     esIndexServiceFactory.put("buyer", buyerEsImportService);
     esIndexServiceFactory.put("shopping_cart", shoppingCartEsImportService);
+    esIndexServiceFactory.put("product", productEsImportService);
   }
 
   @Override

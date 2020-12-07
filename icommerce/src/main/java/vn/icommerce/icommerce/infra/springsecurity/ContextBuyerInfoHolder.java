@@ -1,9 +1,3 @@
-/*
- * Copyright 2019 Sendo company. All Rights Reserved.
- *
- * This software is the proprietary information of Sendo company. Use is subject to license terms.
- */
-
 package vn.icommerce.icommerce.infra.springsecurity;
 
 import java.util.Optional;
@@ -17,10 +11,15 @@ import vn.icommerce.sharedkernel.domain.model.DomainCode;
 
 /**
  * Implementation that uses the security context to perform the business logic.
- *
  */
 @Component
 public class ContextBuyerInfoHolder implements BuyerInfoHolder {
+
+  @Override
+  public Boolean isLogin() {
+    return SecurityContextHolder.getContext().getAuthentication()
+        .getPrincipal() instanceof BuyerToken;
+  }
 
   @Override
   public Long getBuyerId() {

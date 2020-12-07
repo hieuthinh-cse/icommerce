@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import vn.icommerce.sharedkernel.domain.exception.DomainException;
 import vn.icommerce.sharedkernel.domain.model.Buyer;
 import vn.icommerce.sharedkernel.domain.model.DomainCode;
+import vn.icommerce.sharedkernel.domain.model.SocialPlatform;
 import vn.icommerce.sharedkernel.domain.repository.BuyerRepository;
 
 /**
@@ -67,6 +68,16 @@ public class JpaBuyerRepository implements BuyerRepository {
     var buyerOptional = springAccountRepository.findById(buyerId);
 
     log.info("method: findById, buyerId: {} , buyerOptional: {}", buyerId, buyerOptional);
+
+    return buyerOptional;
+  }
+
+  @Override
+  public Optional<Buyer> findBySocialId(String socialId) {
+    var buyerOptional = springAccountRepository
+        .findBySocialIdAndPlatform(socialId, SocialPlatform.FACEBOOK);
+
+    log.info("method: findBySocialId, socialId: {} , buyerOptional: {}", socialId, buyerOptional);
 
     return buyerOptional;
   }

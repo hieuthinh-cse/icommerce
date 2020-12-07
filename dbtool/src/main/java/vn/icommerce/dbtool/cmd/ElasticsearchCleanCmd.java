@@ -1,16 +1,23 @@
 package vn.icommerce.dbtool.cmd;
 
+import java.util.stream.Stream;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.client.indices.GetIndexRequest;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ElasticsearchCleanCmd extends AbstractElasticsearchCmd {
 
-  public ElasticsearchCleanCmd(RestHighLevelClient client) {
+  private final ResourcePatternResolver resolver;
+
+  public ElasticsearchCleanCmd(RestHighLevelClient client,
+      ResourcePatternResolver resolver) {
     super(client);
+    this.resolver = resolver;
   }
 
   private boolean indexExists(String indexName) {
@@ -38,10 +45,28 @@ public class ElasticsearchCleanCmd extends AbstractElasticsearchCmd {
     }
   }
 
+  private Resource[] getResources() {
+    try {
+      return resolver.getResources(String.format(
+          "file:%s/../elasticsearch/*.json",
+          System.getProperty("user.dir")));
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  private String toIndexName(Resource resource) {
+    return resource.getFilename().replace(".json", "");
+  }
+
   @Override
   public void run() {
     if (optionSet.contains("*")) {
-      deleteIndex("*");
+      Stream
+          .of(getResources())
+          .map(this::toIndexName)
+          .filter(this::indexExists)
+          .forEach(this::deleteIndex);
     } else {
       optionSet
           .stream()

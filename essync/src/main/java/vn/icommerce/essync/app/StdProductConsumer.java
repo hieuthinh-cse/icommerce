@@ -1,9 +1,3 @@
-/*
- * Copyright 2020 Sendo company. All Rights Reserved.
- *
- * This software is the proprietary information of Sendo company. Use is subject to license terms.
- */
-
 package vn.icommerce.essync.app;
 
 import java.util.UUID;
@@ -15,13 +9,14 @@ import vn.icommerce.sharedkernel.domain.repository.ProductRepository;
 
 /**
  * Standard implementation for the product service.
- *
  */
 @Slf4j
 @Component
 public class StdProductConsumer implements ProductConsumer {
 
   private static final String PRODUCT_INDEX = "product";
+
+  private static final String PRODUCT_HISTORY_INDEX = "product_history";
 
   private final ProductRepository productRepository;
 
@@ -46,11 +41,19 @@ public class StdProductConsumer implements ProductConsumer {
   public void indexById(Long productId) {
     productRepository
         .findById(productId)
-        .ifPresent(product -> searchEngine.index(
-            PRODUCT_INDEX,
-            product.getProductId().toString(),
-            product.getUpdatedAt().toInstant().toEpochMilli(),
-            product));
+        .ifPresent(product -> {
+          searchEngine.index(
+              PRODUCT_INDEX,
+              product.getProductId().toString(),
+              product.getUpdatedAt().toInstant().toEpochMilli(),
+              product);
+
+          searchEngine.index(
+              PRODUCT_HISTORY_INDEX,
+              UUID.randomUUID().toString(),
+              product.getUpdatedAt().toInstant().toEpochMilli(),
+              product);
+        });
 
     log.info("method: indexById, productId: {}", productId);
   }

@@ -12,13 +12,9 @@ import lombok.experimental.Accessors;
  */
 @Accessors(chain = true)
 @Data
-@ToString(exclude = "password")
+@ToString(exclude = "fbAccessToken")
 public class CreateBuyerTokenCmd {
 
   @NotBlank
-  @Email
-  private String email;
-
-  @NotBlank
-  private String password;
+  private String fbAccessToken;
 }
