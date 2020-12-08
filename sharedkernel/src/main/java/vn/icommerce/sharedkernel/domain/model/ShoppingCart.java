@@ -3,6 +3,7 @@
  */
 package vn.icommerce.sharedkernel.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.math.BigDecimal;
@@ -16,7 +17,10 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
@@ -52,9 +56,6 @@ public class ShoppingCart {
   @Column(name = "buyer_id")
   private Long buyerId;
 
-//  @Column(name = "order_id")
-//  private Long orderId;
-
   @Enumerated(EnumType.STRING)
   @Column(name = "status")
   private ShoppingCartStatus status;
@@ -67,10 +68,16 @@ public class ShoppingCart {
   @Column(name = "updated_at", nullable = false)
   private OffsetDateTime updatedAt;
 
+  @OneToOne(cascade = CascadeType.ALL,
+      mappedBy = "cart",
+      orphanRemoval = true)
+  @JsonIgnore
+  private Order order;
+
   public BigDecimal getSubTotal() {
     return items
         .stream()
-        .map(ShoppingCartItem::getPrice)
+        .map(ShoppingCartItem::getSubTotal)
         .reduce(BigDecimal.ZERO, BigDecimal::add);
   }
 }

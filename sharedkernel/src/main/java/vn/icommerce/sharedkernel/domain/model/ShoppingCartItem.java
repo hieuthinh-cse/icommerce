@@ -41,14 +41,7 @@ public class ShoppingCartItem {
   @Column(name = "product_id", nullable = false)
   private Long productId;
 
-  //  @JsonIgnore
-//  @Transient
-//  private BigDecimal itemPrice;//item final price including all rebates
-//
-//  @JsonIgnore
-//  @Transient
-//  private BigDecimal subTotal;//item final price * quantity
-//
+
   @JsonIgnore
   @Transient
   private Product product;
@@ -56,8 +49,4 @@ public class ShoppingCartItem {
   public BigDecimal getSubTotal() {
     return price.multiply(BigDecimal.valueOf(quantity));
   }
-//
-//  @JsonIgnore
-//  @Transient
-//  private boolean obsolete = false;
 }

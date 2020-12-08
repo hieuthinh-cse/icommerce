@@ -6,6 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import vn.icommerce.sharedkernel.domain.event.BuyerCreatedEvent;
+import vn.icommerce.sharedkernel.domain.event.OrderCreatedEvent;
+import vn.icommerce.sharedkernel.domain.event.ShippingAddressCreatedEvent;
+import vn.icommerce.sharedkernel.domain.event.ShoppingCartChangedEvent;
 import vn.icommerce.sharedkernel.domain.event.ShoppingCartUpdatedEvent;
 import vn.icommerce.sharedkernel.domain.event.ProductCreatedEvent;
 import vn.icommerce.sharedkernel.domain.event.ProductUpdatedEvent;
@@ -39,14 +42,32 @@ public class KafkaConfig {
       BuyerCreatedEvent.class.getSimpleName();
 
   /**
-   * The topic id of the shopping created event.
+   * The topic id of the shopping cart created event.
    */
   private String shoppingCartCreatedEventTopicId =
       ShoppingCartCreatedEvent.class.getSimpleName();
 
   /**
-   * The topic id of the shopping updated event.
+   * The topic id of the shopping cart updated event.
    */
   private String shoppingCartUpdatedEventTopicId =
       ShoppingCartUpdatedEvent.class.getSimpleName();
+
+  /**
+   * The topic id of the shopping cart changed event.
+   */
+  private String shoppingCartChangedEventTopicId =
+      ShoppingCartChangedEvent.class.getSimpleName();
+
+  /**
+   * The topic id of the order created event.
+   */
+  private String orderCreatedEventTopicId =
+      OrderCreatedEvent.class.getSimpleName();
+
+  /**
+   * The topic id of the order created event.
+   */
+  private String shippingAddressCreatedEventTopicId =
+      ShippingAddressCreatedEvent.class.getSimpleName();
 }

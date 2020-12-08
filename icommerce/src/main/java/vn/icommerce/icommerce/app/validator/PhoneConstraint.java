@@ -1,10 +1,4 @@
-/*
- * Copyright 2020 Sendo company. All Rights Reserved.
- *
- * This software is the proprietary information of Sendo company. Use is subject to license terms.
- */
-
-package vn.icommerce.iam.app.validator;
+package vn.icommerce.icommerce.app.validator;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -14,18 +8,13 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-/**
- * <p>Created on 06/22/2020.
- *
- * @author tuanlt2
- */
 @Documented
-@Constraint(validatedBy = PasswordValidator.class)
+@Constraint(validatedBy = PhoneValidator.class)
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface PasswordConstraint {
+public @interface PhoneConstraint {
 
-  String message() default "{iam.password_constraint}";
+  String message() default "{icommerce.phone_constraint}";
 
   Class<?>[] groups() default {};
 

@@ -28,13 +28,14 @@ public enum DomainCode {
   PRODUCT_NOT_FOUND(404_001, "Product %s not found"),
   PROCESSING_CART_NOT_FOUND(404_002, "Buyer %s not found"),
   INVALID_CREDENTIALS(404_003, "Credentials %s with its password is invalid"),
+  BUYER_DEFAULT_ADDRESS_NOT_FOUND(404_004, "Buyer %s's default address not found"),
+  ORDER_NOT_FOUND(404_005, "Order %s not found"),
 
   // 405xxx is for unsupported http request method
   HTTP_REQUEST_METHOD_NOT_SUPPORTED(405_000, "Http request method not supported"),
 
   // 406xxx is for calling external service error
   SOCIAL_LOGIN_FAILED(406_001, "Failed to unable to login Facebook"),
-  INVALID_SOCIAL_APP(406_002, "Social app %s is invalid"),
   SEARCH_REQUEST(406_013, "Failed to search with query %s. Reason: %s"),
   EXTERNAL_SVC_RESPONSE_ERROR(406_028, "Error when calling %s. Reason: %s. Error data: %s"),
   EXTERNAL_SVC_CONNECTION_ERROR(406_029, "Error when connecting to %s. Reason: %s"),
@@ -44,11 +45,14 @@ public enum DomainCode {
 
   // 409xxx is for resource modification conflict
   BUYER_EXISTING(409_000, "Account %s already exists"),
+  PROCESSING_CART_EXISTING(409_001, "Processing cart %s already exists"),
 
   // 415xxx is for unsupported media type error
   HTTP_MEDIA_TYPE_NOT_SUPPORTED(415_000, "Http media type not supported"),
 
   // 422xxx is for business logic error
+  SHOPPING_CART_EMPTY(422_000, "Shopping cart is empty"),
+  SHOPPING_CART_CHANGED(422_009, "Shopping cart changed."),
 
   // 500xx is for internal error
   UNKNOWN_ERROR(500_000, "Unknown error");

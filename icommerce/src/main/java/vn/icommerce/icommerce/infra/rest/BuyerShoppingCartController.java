@@ -1,10 +1,6 @@
-/*
- * Copyright 2019 Sendo company. All Rights Reserved.
- *
- * This software is the proprietary information of Sendo company. Use is subject to license terms.
- */
-
 package vn.icommerce.icommerce.infra.rest;
+
+import static vn.icommerce.sharedkernel.domain.model.DomainCode.REQUEST_PROCESSED_SUCCESSFULLY;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -14,22 +10,21 @@ import java.util.Locale;
 import java.util.UUID;
 import javax.validation.Valid;
 import org.springframework.context.MessageSource;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import vn.icommerce.icommerce.app.cart.AddProduct2CartCmd;
 import vn.icommerce.icommerce.app.cart.BuyerShoppingCartAppService;
+import vn.icommerce.icommerce.app.cart.QueryShoppingCartAppService;
 import vn.icommerce.icommerce.app.cart.UpdateProductCartCmd;
+import vn.icommerce.sharedkernel.app.component.Query;
 import vn.icommerce.sharedkernel.domain.model.DomainCode;
 
-/**
- * This controller provides the {@code Transaction} manipulation API.
- *
- * <p>Created on 8/20/19.
- *
- * @author khoanguyenminh
- */
+
 @Api(tags = "buyer shopping cart controller")
 @RestController
 public class BuyerShoppingCartController {
@@ -39,24 +34,39 @@ public class BuyerShoppingCartController {
 
   private final BuyerShoppingCartAppService buyerShoppingCartAppService;
 
+  private final QueryShoppingCartAppService queryShoppingCartAppService;
+
 
   /**
    * Constructor to inject dependent fields.
    */
   public BuyerShoppingCartController(
       MessageSource messageSource,
-      BuyerShoppingCartAppService buyerShoppingCartAppService) {
+      BuyerShoppingCartAppService buyerShoppingCartAppService,
+      QueryShoppingCartAppService queryShoppingCartAppService) {
     this.messageSource = messageSource;
     this.buyerShoppingCartAppService = buyerShoppingCartAppService;
+    this.queryShoppingCartAppService = queryShoppingCartAppService;
   }
 
   /**
-   * Create an unescrow transaction.
+   * Search the requests matching the given query condition.
    *
-   * @param cmd the command having info to create transaction.
+   * @param query the query having info to search the logs
    * @return the API response.
    */
-  @ApiOperation(value = "Create an escrow transaction")
+  @ApiOperation(value = "Search shopping cart")
+  @ApiResponses(@ApiResponse(code = 200, message = "OK", response = ApiResp.class))
+  @GetMapping("/v1/me/shopping-cart")
+  public ApiResp searchRequests(@Validated Query query, Locale locale) {
+    return new ApiResp()
+        .setCode(REQUEST_PROCESSED_SUCCESSFULLY.value())
+        .setMessage(messageSource.getMessage(
+            REQUEST_PROCESSED_SUCCESSFULLY.valueAsString(), null, locale))
+        .setData(queryShoppingCartAppService.get(query));
+  }
+
+  @ApiOperation(value = "Update a product in cart")
   @ApiResponses(@ApiResponse(code = 200, message = "OK", response = ApiResp.class))
   @PostMapping("/v1/me/carts/items/{itemId}")
   public ApiResp updateProductCart(@Valid @RequestBody UpdateProductCartCmd cmd,
@@ -71,15 +81,9 @@ public class BuyerShoppingCartController {
             .getMessage(DomainCode.REQUEST_PROCESSED_SUCCESSFULLY.valueAsString(), null, locale));
   }
 
-  /**
-   * Create an unescrow transaction.
-   *
-   * @param cmd the command having info to create transaction.
-   * @return the API response.
-   */
-  @ApiOperation(value = "Create an escrow transaction")
+  @ApiOperation(value = "Add a product to cart")
   @ApiResponses(@ApiResponse(code = 200, message = "OK", response = ApiResp.class))
-  @PostMapping("/v1/me/carts/items")
+  @PutMapping("/v1/me/carts/items")
   public ApiResp addProductCart(@Valid @RequestBody AddProduct2CartCmd cmd,
       Locale locale) {
     buyerShoppingCartAppService.addProductCart(cmd);

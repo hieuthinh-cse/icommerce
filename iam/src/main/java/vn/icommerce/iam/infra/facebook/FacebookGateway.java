@@ -66,7 +66,7 @@ public class FacebookGateway implements SocialGateway {
         FacebookTokenDebugResponse.class);
 
     if (ResultStatus.FAILED.equals(tokenDebug.getResultStatus())) {
-      throw new DomainException(DomainCode.INVALID_SOCIAL_APP, tokenDebug.getAppId());
+      throw new DomainException(DomainCode.TOKEN_EXPIRED);
     }
   }
 

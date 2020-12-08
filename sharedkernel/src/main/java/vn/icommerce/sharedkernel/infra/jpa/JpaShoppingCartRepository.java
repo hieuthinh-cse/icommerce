@@ -38,6 +38,15 @@ public class JpaShoppingCartRepository implements ShoppingCartRepository {
   }
 
   @Override
+  public Optional<ShoppingCart> findByBuyerIdAndStatus(Long buyerId, ShoppingCartStatus status) {
+    var cart = springShoppingCartRepository.findByBuyerIdAndStatus(buyerId, status);
+
+    log.info("method: findByBuyerIdAndStatus, buyerId: {} , cart: {}", buyerId, cart);
+
+    return cart;
+  }
+
+  @Override
   public ShoppingCart requireCurrentCart(Long buyerId) {
     var cart = springShoppingCartRepository.findByBuyerIdAndStatus(buyerId, ShoppingCartStatus.PROCESSING)
         .orElseThrow(() -> new DomainException(DomainCode.PROCESSING_CART_NOT_FOUND, buyerId));
