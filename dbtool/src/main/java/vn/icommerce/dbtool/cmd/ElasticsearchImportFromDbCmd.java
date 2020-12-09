@@ -31,16 +31,8 @@ public class ElasticsearchImportFromDbCmd extends AbstractElasticsearchCmd {
 
   @Override
   public void run() {
-    if (optionSet.contains("*")) {
-      esIndexServiceFactory
-          .values()
-          .forEach(EsImportService::importFromDb);
-    } else {
-      optionSet
-          .stream()
-          .map(esIndexServiceFactory::get)
-          .filter(Objects::nonNull)
-          .forEach(EsImportService::importFromDb);
-    }
+    esIndexServiceFactory
+        .values()
+        .forEach(EsImportService::importFromDb);
   }
 }

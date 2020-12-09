@@ -39,12 +39,12 @@ CREATE TABLE shopping_cart
 CREATE TABLE shopping_cart_item
 (
     shopping_cart_item_id      UUID PRIMARY KEY,
-    shopping_cart_id      BIGINT NOT NULL,
-    quantity              INT NOT NULL,
-    product_id            BIGINT NOT NULL,
-    price                 DECIMAL NOT NULL DEFAULT 0,
-    created_at            TIMESTAMPTZ  NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at            TIMESTAMPTZ  NOT NULL DEFAULT CURRENT_TIMESTAMP
+    shopping_cart_id           BIGINT NOT NULL,
+    quantity                   INT NOT NULL,
+    product_id                 BIGINT NOT NULL,
+    price                      DECIMAL NOT NULL DEFAULT 0,
+    created_at                 TIMESTAMPTZ  NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at                 TIMESTAMPTZ  NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE role

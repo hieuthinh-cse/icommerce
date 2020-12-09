@@ -61,17 +61,10 @@ public class ElasticsearchCleanCmd extends AbstractElasticsearchCmd {
 
   @Override
   public void run() {
-    if (optionSet.contains("*")) {
-      Stream
-          .of(getResources())
-          .map(this::toIndexName)
-          .filter(this::indexExists)
-          .forEach(this::deleteIndex);
-    } else {
-      optionSet
-          .stream()
-          .filter(this::indexExists)
-          .forEach(this::deleteIndex);
-    }
+    Stream
+        .of(getResources())
+        .map(this::toIndexName)
+        .filter(this::indexExists)
+        .forEach(this::deleteIndex);
   }
 }
