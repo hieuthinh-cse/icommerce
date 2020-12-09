@@ -1,6 +1,3 @@
-/**
- *
- */
 package vn.icommerce.sharedkernel.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -51,9 +48,6 @@ public class ShoppingCart {
 
   @Column(name = "buyer_id")
   private Long buyerId;
-
-//  @Column(name = "order_id")
-//  private Long orderId;
 
   @Enumerated(EnumType.STRING)
   @Column(name = "status")
