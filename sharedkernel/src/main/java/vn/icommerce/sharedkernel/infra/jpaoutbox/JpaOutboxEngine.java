@@ -9,7 +9,7 @@ import vn.icommerce.sharedkernel.app.component.OutboxEngine;
 import vn.icommerce.sharedkernel.domain.event.DomainEvent;
 
 /**
- * @author tuyenpham
+ *
  */
 @Slf4j
 @Component

@@ -26,10 +26,10 @@ public enum DomainCode {
   // 404xxx is for resource not found exception
   BUYER_NOT_FOUND(404_000, "Buyer %s not found"),
   PRODUCT_NOT_FOUND(404_001, "Product %s not found"),
-  PROCESSING_CART_NOT_FOUND(404_002, "Buyer %s not found"),
-  INVALID_CREDENTIALS(404_003, "Credentials %s with its password is invalid"),
+  PROCESSING_CART_NOT_FOUND(404_002, "Cart buyer %s not found"),
   BUYER_DEFAULT_ADDRESS_NOT_FOUND(404_004, "Buyer %s's default address not found"),
   ORDER_NOT_FOUND(404_005, "Order %s not found"),
+  INVALID_CREDENTIALS(404_007, "Credentials %s with its password is invalid"),
 
   // 405xxx is for unsupported http request method
   HTTP_REQUEST_METHOD_NOT_SUPPORTED(405_000, "Http request method not supported"),

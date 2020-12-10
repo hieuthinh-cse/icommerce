@@ -5,9 +5,9 @@ import java.security.SecureRandom;
 /**
  * Id Generator help generate random id.
  *
- * <p>Created on 10/11/2019.
  *
- * @author trieutq
+ *
+ *
  */
 public class IdGenerator {
 

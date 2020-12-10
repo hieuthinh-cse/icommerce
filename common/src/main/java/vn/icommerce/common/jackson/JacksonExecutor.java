@@ -1,8 +1,4 @@
-/*
- * Copyright 2019 Sendo company. All Rights Reserved.
- *
- * This software is the proprietary information of Sendo company. Use is subject to license terms.
- */
+
 
 package vn.icommerce.common.jackson;
 
@@ -17,9 +13,9 @@ import org.springframework.stereotype.Component;
 /**
  * The serializer using Jackson library to perform business.
  *
- * <p>Created on 12/11/19.
  *
- * @author khoanguyenminh
+ *
+ *
  */
 @Component
 public class JacksonExecutor {

@@ -1,8 +1,4 @@
-/*
- * Copyright 2019 Sendo company. All Rights Reserved.
- *
- * This software is the proprietary information of Sendo company. Use is subject to license terms.
- */
+
 
 package vn.icommerce.common.jackson;
 
@@ -16,9 +12,9 @@ import java.math.RoundingMode;
 /**
  * Custom serializer to serialize a {@link BigDecimal} object to its string representation.
  *
- * <p>Created on 10/20/19.
  *
- * @author khoanguyenminh
+ *
+ *
  */
 public class BigDecimalSerializer extends StdSerializer<BigDecimal> {
 

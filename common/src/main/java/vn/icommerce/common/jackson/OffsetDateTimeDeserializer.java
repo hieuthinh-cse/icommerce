@@ -1,8 +1,4 @@
-/*
- * Copyright 2019 Sendo company. All Rights Reserved.
- *
- * This software is the proprietary information of Sendo company. Use is subject to license terms.
- */
+
 
 package vn.icommerce.common.jackson;
 
@@ -18,9 +14,9 @@ import java.time.ZoneOffset;
  * Custom deserializer to deserialize a string representation of number of milliseconds from the
  * epoch to an {@link OffsetDateTime} object.
  *
- * <p>Created on 10/20/19.
  *
- * @author khoanguyenminh
+ *
+ *
  */
 public class OffsetDateTimeDeserializer extends StdDeserializer<OffsetDateTime> {
 

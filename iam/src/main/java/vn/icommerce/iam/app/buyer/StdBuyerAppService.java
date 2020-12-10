@@ -17,9 +17,9 @@ import vn.icommerce.sharedkernel.domain.repository.BuyerRepository;
 /**
  * Standard implementation for the account service.
  *
- * <p>Created on 8/20/19.
  *
- * @author khoanguyenminh
+ *
+ *
  */
 @Service
 @Slf4j

@@ -25,6 +25,22 @@
       "productPrice": {
         "type": "float"
       },
+      "productBrand": {
+        "type": "keyword",
+        "fields": {
+          "text": {
+            "type": "text"
+          }
+        }
+      },
+      "productColour": {
+        "type": "keyword",
+        "fields": {
+          "text": {
+            "type": "text"
+          }
+        }
+      },
       "createdAt": {
         "type": "date"
       },

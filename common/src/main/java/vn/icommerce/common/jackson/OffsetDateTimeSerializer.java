@@ -1,8 +1,4 @@
-/*
- * Copyright 2019 Sendo company. All Rights Reserved.
- *
- * This software is the proprietary information of Sendo company. Use is subject to license terms.
- */
+
 
 package vn.icommerce.common.jackson;
 
@@ -17,9 +13,9 @@ import org.springframework.boot.jackson.JsonComponent;
  * Custom serializer to serialize an {@link OffsetDateTime} object to the string representation of
  * number of milliseconds from the epoch.
  *
- * <p>Created on 10/20/19.
  *
- * @author khoanguyenminh
+ *
+ *
  */
 public class OffsetDateTimeSerializer extends StdSerializer<OffsetDateTime> {
 

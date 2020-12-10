@@ -1,8 +1,4 @@
-/*
- * Copyright 2019 Sendo company. All Rights Reserved.
- *
- * This software is the proprietary information of Sendo company. Use is subject to license terms.
- */
+
 
 package vn.icommerce.iamoutbox;
 
@@ -20,7 +16,7 @@ import vn.icommerce.common.springtx.SpringTxMarker;
 /**
  * This is the configuration of the Outbox app.
  *
- * <p>Created on 8/20/19.
+ *
  */
 @Configuration
 @ComponentScan(basePackageClasses = {

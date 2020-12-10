@@ -41,7 +41,7 @@ import vn.icommerce.sharedkernel.domain.exception.DomainException;
  * Once defining a specific exception to be caught in this global exception handler, it will apply
  * to exception thrown from <b>any</b> controller.
  *
- * <p><b>Note:</b>
+ *
  * <ul>
  * <li>{@link ExceptionHandler @ExceptionHandler} methods on the {@code Controller} are always
  * selected before those on this handler.
@@ -71,7 +71,7 @@ public class GlobalExceptionHandler {
   /**
    * Handles {@link MethodArgumentNotValidException}.
    *
-   * <p><b>NOTE:</b> This exception handler is mainly used for POST method request with a JSON
+   *
    * request body.
    */
   @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -103,7 +103,7 @@ public class GlobalExceptionHandler {
   /**
    * Handles {@link BindException}.
    *
-   * <p><b>NOTE:</b> This exception handler is mainly used for GET method request with standard
+   *
    * query parameters.
    */
   @ExceptionHandler(BindException.class)
@@ -162,7 +162,7 @@ public class GlobalExceptionHandler {
   /**
    * Handles {@link ConstraintViolationException}.
    *
-   * <p><b>NOTE:</b> This exception handler is mainly used for POST method request with a JSON
+   *
    * request body.
    */
   @ExceptionHandler(ConstraintViolationException.class)

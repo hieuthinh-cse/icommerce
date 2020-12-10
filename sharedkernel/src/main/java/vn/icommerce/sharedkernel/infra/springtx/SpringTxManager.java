@@ -1,8 +1,4 @@
-/*
- * Copyright 2019 Sendo company. All Rights Reserved.
- *
- * This software is the proprietary information of Sendo company. Use is subject to license terms.
- */
+
 
 package vn.icommerce.sharedkernel.infra.springtx;
 
@@ -14,9 +10,9 @@ import vn.icommerce.sharedkernel.app.component.TxManager;
 /**
  * Implementation that uses the Spring annotation to perform the logic.
  *
- * <p>Created on 03/11/20.
  *
- * @author vutc
+ *
+ *
  */
 @Component
 public class SpringTxManager implements TxManager {

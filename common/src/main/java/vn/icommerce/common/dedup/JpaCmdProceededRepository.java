@@ -1,8 +1,4 @@
-/*
- * Copyright 2019 Sendo company. All Rights Reserved.
- *
- * This software is the proprietary information of Sendo company. Use is subject to license terms.
- */
+
 
 package vn.icommerce.common.dedup;
 
@@ -18,9 +14,9 @@ import vn.icommerce.common.exception.DuplicateException;
 /**
  * Implementation that uses the Jpa/Spring implementation to perform outbox business.
  *
- * <p>Created on 9/06/19.
  *
- * @author vanlh
+ *
+ *
  */
 @Repository
 @Slf4j

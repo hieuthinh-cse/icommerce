@@ -1,0 +1,6 @@
+discovery.type: "single-node"
+cluster.name: "docker-cluster"
+bootstrap.memory_lock: true
+http.host: 0.0.0.0
+network.host: 0.0.0.0
+transport.host: 0.0.0.0

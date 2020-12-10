@@ -1,8 +1,4 @@
-/*
- * Copyright 2019 Sendo company. All Rights Reserved.
- *
- * This software is the proprietary information of Sendo company. Use is subject to license terms.
- */
+
 
 package vn.icommerce.icommerce.infra.springsecurity;
 
@@ -23,9 +19,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 /**
  * This filter perform authentication via API key.
  *
- * <p>Created on 11/21/19.
  *
- * @author khoanguyenminh
+ *
+ *
  */
 public class AuthApiKeyFilter extends OncePerRequestFilter {
 

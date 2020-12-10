@@ -8,9 +8,9 @@ import vn.icommerce.sharedkernel.app.component.QueryConstraint;
 /**
  * Validator for search query.
  *
- * <p>Created on 12/23/19.
  *
- * @author tuanlethanh
+ *
+ *
  */
 public class QueryValidator implements ConstraintValidator<QueryConstraint, Query> {
 

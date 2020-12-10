@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 /**
  * Implementation that uses the current {@link OffsetDateTime#now()} to perform the business logic.
  *
- * <p>Created on 11/24/19.
  *
- * @author khoanguyenminh
+ *
+ *
  */
 @Component
 public class OffsetDateTimeProvider implements DateTimeProvider {

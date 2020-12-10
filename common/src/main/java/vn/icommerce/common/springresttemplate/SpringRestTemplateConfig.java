@@ -1,8 +1,4 @@
-/*
- * Copyright 2020 Sendo company. All Rights Reserved.
- *
- * This software is the proprietary information of Sendo company. Use is subject to license terms.
- */
+
 
 package vn.icommerce.common.springresttemplate;
 
@@ -17,11 +13,7 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
-/**
- * <p>Created on 5/12/20.
- *
- * @author khoanguyenminh
- */
+
 @Data
 @Configuration
 @ConfigurationProperties("common.infra.springresttemplate")

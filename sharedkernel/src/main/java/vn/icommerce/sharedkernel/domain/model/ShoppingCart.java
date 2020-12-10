@@ -28,7 +28,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import vn.icommerce.sharedkernel.app.generator.IdGenerator;
 
 /**
- * <p>Shopping cart is responsible for storing and carrying
+ *
  * shopping cart information.Shopping Cart consists of {@link ShoppingCartItem}
  * which represents individual lines items associated with the shopping cart</p>
  *

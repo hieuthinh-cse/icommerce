@@ -1,8 +1,4 @@
-/*
- * Copyright 2019 Sendo company. All Rights Reserved.
- *
- * This software is the proprietary information of Sendo company. Use is subject to license terms.
- */
+
 
 package vn.icommerce.common.elasticsearch.processor;
 
@@ -21,9 +17,9 @@ import vn.icommerce.common.elasticsearch.model.FieldState;
 /**
  * Implementation for sorting on a field.
  *
- * <p>Created on 07/01/20.
  *
- * @author thinh.nguyenhieu
+ *
+ *
  */
 @Component
 public class SortProcessor {

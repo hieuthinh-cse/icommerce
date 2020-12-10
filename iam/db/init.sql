@@ -15,6 +15,21 @@ CREATE TABLE buyer
 
 CREATE UNIQUE INDEX email_unique_idx on buyer (LOWER(email));
 
+CREATE TABLE buyer_address
+(
+    address_id         UUID PRIMARY KEY,
+    buyer_id           BIGINT       NOT NULL,
+    name               TEXT         NOT NULL,
+    default_address    BOOLEAN      NOT NULL,
+    phone_number       TEXT         NOT NULL,
+    region             TEXT         NOT NULL,
+    street             TEXT         NOT NULL,
+    created_at         TIMESTAMPTZ  NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at         TIMESTAMPTZ  NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (buyer_id) REFERENCES buyer (buyer_id) ON DELETE CASCADE
+);
+
 CREATE TABLE role
 (
     role_name   CHAR(3) PRIMARY KEY,
@@ -79,10 +94,5 @@ INSERT INTO role_privilege(role_name, privilege_name, created_at, created_by)
 VALUES ('ADM', 'WRI_PRO', '2020-04-01 07:00:00', '');
 
 -- buyer
--- INSERT INTO buyer (buyer_id,email,"password",buyer_name,status,created_by,updated_by)
--- VALUES
--- 	 (330263927,'abc@xyz.com','$argon2id$v=19$m=4096,t=3,p=1$MiQzNYNKSAU/a8KounlPlQ$NsKedzaiT7XGYLVgtHgBQ/YThgEougliIvovZPWNMAg','string','ACTIVE','System','System');
---
--- -- shopping_cart
--- INSERT INTO shopping_cart (shopping_cart_id,buyer_id,status) VALUES
--- 	 (866385412,330263927,'PROCESSING');
+INSERT INTO buyer (buyer_id,email,"password",buyer_name,social_id,social_platform,status,created_by,updated_by) VALUES
+(360009466,'buyer@gmail.com','$argon2id$v=19$m=4096,t=3,p=1$IY5eWqE64TcKsdNBOIDSew$PueFKwzqUhExkeaIXGKtyWrMqgwZg834rkqG4yUBxcY','Thịnh Nguyễn','902162113258707','FACEBOOK','ACTIVE','System','System');

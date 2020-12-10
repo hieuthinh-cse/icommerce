@@ -1,8 +1,4 @@
-/*
- * Copyright 2019 Sendo company. All Rights Reserved.
- *
- * This software is the proprietary information of Sendo company. Use is subject to license terms.
- */
+
 
 package vn.icommerce.iamoutbox;
 
@@ -16,7 +12,7 @@ import org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchAu
 /**
  * This is the entry point of the Outbox app.
  *
- * <p>Created on 8/20/19.
+ *
  */
 @SpringBootApplication(exclude = {
     ElasticsearchAutoConfiguration.class,

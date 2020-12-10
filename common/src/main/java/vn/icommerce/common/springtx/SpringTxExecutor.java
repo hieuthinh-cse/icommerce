@@ -1,8 +1,4 @@
-/*
- * Copyright 2019 Sendo company. All Rights Reserved.
- *
- * This software is the proprietary information of Sendo company. Use is subject to license terms.
- */
+
 
 package vn.icommerce.common.springtx;
 
@@ -15,9 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * Implementation that uses the Spring annotation to perform the logic.
  *
- * <p>Created on 10/19/19.
  *
- * @author khoanguyenminh
+ *
+ *
  */
 @Component
 public class SpringTxExecutor {

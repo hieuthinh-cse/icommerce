@@ -28,12 +28,12 @@ public class DomainCodeTest {
     assertThat(getDomainCodes()).doesNotHaveDuplicates();
   }
 
-//  @Test
-//  public void givenDomainCode_WhenInitDomainCode_ThenReturnHasMessageProperties() {
-//    MessageSource messageSource = new ApiRespMsgConfig().messageSource();
-//
-//    getDomainCodes()
-//        .forEach(code -> assertThatCode(() -> messageSource.getMessage(code, null, null))
-//            .doesNotThrowAnyException());
-//  }
+  @Test
+  public void givenDomainCode_WhenInitDomainCode_ThenReturnHasMessageProperties() {
+    MessageSource messageSource = new ApiRespMsgConfig().messageSource();
+
+    getDomainCodes()
+        .forEach(code -> assertThatCode(() -> messageSource.getMessage(code, null, null))
+            .doesNotThrowAnyException());
+  }
 }

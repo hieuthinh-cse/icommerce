@@ -1,8 +1,4 @@
-/*
- * Copyright 2019 Sendo company. All Rights Reserved.
- *
- * This software is the proprietary information of Sendo company. Use is subject to license terms.
- */
+
 
 package vn.icommerce.common.outbox;
 
@@ -22,9 +18,9 @@ import org.springframework.stereotype.Repository;
 /**
  * Implementation that uses the Jpa/Spring implementation to perform outbox consumed business.
  *
- * <p>Created on 9/06/19.
  *
- * @author vanlh
+ *
+ *
  */
 @Slf4j
 @Repository
