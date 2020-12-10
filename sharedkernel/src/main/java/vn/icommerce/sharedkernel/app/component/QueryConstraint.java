@@ -1,8 +1,4 @@
-/*
- * Copyright 2019 Sendo company. All Rights Reserved.
- *
- * This software is the proprietary information of Sendo company. Use is subject to license terms.
- */
+
 
 package vn.icommerce.sharedkernel.app.component;
 
@@ -18,9 +14,9 @@ import vn.icommerce.sharedkernel.app.validator.QueryValidator;
 /**
  * Constraint for search query validation.
  *
- * <p>Created on 12/23/19.
  *
- * @author tuanlethanh
+ *
+ *
  */
 @Documented
 @Constraint(validatedBy = QueryValidator.class)

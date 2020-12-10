@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import vn.icommerce.iam.app.buyer.BuyerAppService;
 import vn.icommerce.iam.app.buyer.CreateBuyerCmd;
+import vn.icommerce.iam.app.component.Encoder;
 import vn.icommerce.iam.app.component.SocialGateway;
 import vn.icommerce.iam.app.component.TokenCryptoEngine;
 import vn.icommerce.sharedkernel.app.component.TxManager;
@@ -34,6 +35,8 @@ public class StdBuyerTokenAppService implements BuyerTokenAppService {
 
   private final long tokenExpirationInS;
 
+  private final Encoder encoder;
+
   /**
    * Constructor to inject dependencies.
    */
@@ -43,16 +46,17 @@ public class StdBuyerTokenAppService implements BuyerTokenAppService {
       BuyerAppService buyerAppService,
       TokenCryptoEngine tokenCryptoEngine,
       TxManager txManager,
-      SocialGateway socialGateway) {
+      SocialGateway socialGateway, Encoder encoder) {
     this.buyerAppService = buyerAppService;
     this.tokenExpirationInS = tokenExpirationInS;
     this.buyerRepository = buyerRepository;
     this.tokenCryptoEngine = tokenCryptoEngine;
     this.txManager = txManager;
     this.socialGateway = socialGateway;
+    this.encoder = encoder;
   }
 
-  private String createSocialToken(Long buyerId) {
+  private String createToken(Long buyerId) {
     var buyerToken = new BuyerToken()
         .setBuyerId(buyerId)
         .setExpirationDuration(tokenExpirationInS);
@@ -80,9 +84,31 @@ public class StdBuyerTokenAppService implements BuyerTokenAppService {
             return buyerRepository.findById(buyerId);
           })
           .map(Buyer::getBuyerId)
-          .map(this::createSocialToken)
+          .map(this::createToken)
           .orElseThrow(() ->
               new DomainException(DomainCode.SOCIAL_LOGIN_FAILED));
     });
+  }
+
+  @Override
+  public String createWithPassword(CreateBuyerTokenWithPasswordCmd cmd) {
+    log.info("method: create, email: {}", cmd.getEmail());
+
+    String token = txManager.doInTx(() -> {
+      var buyer = buyerRepository
+          .findByEmail(cmd.getEmail())
+          .filter(Buyer::active)
+          .orElseThrow(() -> new DomainException(DomainCode.INVALID_CREDENTIALS, cmd.getEmail()));
+
+      if (!encoder.matches(cmd.getPassword(), buyer.getPassword())) {
+        throw new DomainException(DomainCode.INVALID_CREDENTIALS, cmd.getEmail());
+      }
+
+      return createToken(buyer.getBuyerId());
+    });
+
+    log.info("method: create");
+
+    return token;
   }
 }

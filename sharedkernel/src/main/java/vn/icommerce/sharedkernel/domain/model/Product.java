@@ -33,13 +33,17 @@ public class Product {
   @Setter(AccessLevel.NONE)
   private Long productId = Long.sum(100_000_000L, IdGenerator.generate(0L, 99_999_999L));
 
-//  name, price, brand, colour
-
   @Column(name = "product_name", nullable = false)
   private String productName;
 
   @Column(name = "product_price", nullable = false)
   private BigDecimal productPrice = new BigDecimal(0);
+
+  @Column(name = "product_brand", nullable = false)
+  private String productBrand;
+
+  @Column(name = "product_colour", nullable = false)
+  private String productColour;
 
   @Setter(AccessLevel.NONE)
   @Column(name = "created_at", nullable = false, updatable = false)

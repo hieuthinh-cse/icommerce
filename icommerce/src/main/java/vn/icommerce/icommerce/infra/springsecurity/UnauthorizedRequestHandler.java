@@ -1,8 +1,4 @@
-/*
- * Copyright 2019 Sendo company. All Rights Reserved.
- *
- * This software is the proprietary information of Sendo company. Use is subject to license terms.
- */
+
 
 package vn.icommerce.icommerce.infra.springsecurity;
 
@@ -24,9 +20,9 @@ import vn.icommerce.icommerce.infra.rest.ApiResp;
 /**
  * Handles unauthorized request.
  *
- * <p>Created on 11/22/19.
  *
- * @author khoanguyenminh
+ *
+ *
  */
 @Component
 public class UnauthorizedRequestHandler implements AuthenticationEntryPoint {

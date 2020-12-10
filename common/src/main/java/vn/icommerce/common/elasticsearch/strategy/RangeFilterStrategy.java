@@ -1,8 +1,4 @@
-/*
- * Copyright 2019 Sendo company. All Rights Reserved.
- *
- * This software is the proprietary information of Sendo company. Use is subject to license terms.
- */
+
 
 package vn.icommerce.common.elasticsearch.strategy;
 
@@ -17,9 +13,9 @@ import vn.icommerce.common.elasticsearch.model.FieldState;
 /**
  * Implementation for searching within a provided {@code numeric} or {@code date} range.
  *
- * <p>Created on 9/23/19.
  *
- * @author khoanguyenminh
+ *
+ *
  */
 public class RangeFilterStrategy extends AbstractSearchStrategy {
 

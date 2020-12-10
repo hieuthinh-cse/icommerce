@@ -35,15 +35,25 @@ services:
       - i_network
 
   elasticsearch:
-    image: elasticsearch:7.4.2
-    container_name: iam-es
+    build: elasticsearch/
     ports:
       - "9200:9200"
-      - "9300:9300"
-    environment:
-      - "discovery.type=single-node"
     networks:
       - i_network
+
+#  outbox:
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile
+#    container_name: 'nab_outbox'
+#    env_file: .env
+#    restart: unless-stopped
+#    networks:
+#      - i_network
+#    depends_on:
+#      - elasticsearch
+#      - postgresql
+#    network_mode: host
 
   redis:
     image: redis:latest

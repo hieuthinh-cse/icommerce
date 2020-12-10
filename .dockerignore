@@ -1,6 +1,8 @@
 # User-specific stuff:
 .idea
 
+assets
+
 .gradle/
 build/
 common/build
@@ -19,3 +21,5 @@ Dockerfile
 Dockerfile.prod
 docker-compose.yml
 docker-compose-service.yml
+
+README.md

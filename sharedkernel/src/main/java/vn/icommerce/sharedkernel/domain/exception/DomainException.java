@@ -1,8 +1,4 @@
-/*
- * Copyright 2019 Sendo company. All Rights Reserved.
- *
- * This software is the proprietary information of Sendo company. Use is subject to license terms.
- */
+
 
 package vn.icommerce.sharedkernel.domain.exception;
 
@@ -11,9 +7,9 @@ import vn.icommerce.sharedkernel.domain.model.DomainCode;
 /**
  * Thrown when there is a domain-specific exception happens.
  *
- * <p>Created on 10/4/19.
  *
- * @author khoanguyenminh
+ *
+ *
  */
 public class DomainException extends RuntimeException {
 

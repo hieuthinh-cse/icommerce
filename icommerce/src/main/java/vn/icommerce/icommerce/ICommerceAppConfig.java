@@ -18,7 +18,7 @@ import vn.icommerce.sharedkernel.SharedKernelMarker;
 /**
  * This is the configuration of the IAM app.
  *
- * <p>Created on 8/20/19.
+ *
  */
 @Configuration
 @ComponentScan(basePackageClasses = {

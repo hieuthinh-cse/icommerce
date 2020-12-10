@@ -1,0 +1,39 @@
+@startuml
+
+' It is used with ||| to avoid issue: activation is not working correctly with message to itself
+!pragma teoz true
+
+''''''''''''''''''''''' Declare PlantUML participants - Begin '''''''''''''''''''''''
+actor Buyer
+participant Iam
+participant ICommerce
+participant Kafka
+boundary Facebook
+''''''''''''''''''''''' Declare PlantUML participants - End '''''''''''''''''''''''
+
+
+''''''''''''''''''''''' Define PlantUML functions - Begin '''''''''''''''''''''''
+''''''''''''''''''''''' Define PlantUML functions - End '''''''''''''''''''''''
+
+
+''''''''''''''''''''''' login - Begin '''''''''''''''''''''''
+activate Iam
+Buyer -> Facebook: Login with Facebook
+Facebook->Facebook: User login to Facebook account
+Buyer <--Facebook: Return accessToken
+Buyer -> Iam: POST /v1/tokens with Facebook access token
+Iam->Facebook: GET graph.facebook.com/me with Facebook access token
+Facebook->Facebook: validate token
+Iam <-- Facebook: return user profile
+Iam -> Iam: register buyer if not exist
+Buyer <--Iam: return access token (JWT)
+Iam -> Kafka: buyer created event
+deactivate Iam
+activate ICommerce
+Kafka -> ICommerce: event
+ICommerce -> ICommerce: create buyer cart
+|||
+deactivate ICommerce
+
+''''''''''''''''''''''' login - End '''''''''''''''''''''''
+@enduml

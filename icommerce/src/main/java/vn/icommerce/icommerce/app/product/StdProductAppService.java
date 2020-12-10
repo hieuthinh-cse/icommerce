@@ -38,7 +38,9 @@ public class StdProductAppService implements ProductAppService {
 
       var product = new Product()
           .setProductName(cmd.getProductName())
-          .setProductPrice(cmd.getProductPrice());
+          .setProductPrice(cmd.getProductPrice())
+          .setProductBrand(cmd.getProductBrand())
+          .setProductColour(cmd.getProductColour());
 
       productRepository.create(product);
 

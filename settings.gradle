@@ -7,4 +7,3 @@ include 'common'
 include 'sharedkernel'
 
 include 'dbtool'
-include 'it'

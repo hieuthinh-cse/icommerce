@@ -7,9 +7,9 @@ import lombok.experimental.Accessors;
 /**
  * This object represents the result of linking token.
  *
- * <p>Created on 9/5/19.
  *
- * @author vutc
+ *
+ *
  */
 @Accessors(chain = true)
 @Data

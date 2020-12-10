@@ -1,9 +1,3 @@
-/*
- * Copyright 2019 Sendo company. All Rights Reserved.
- *
- * This software is the proprietary information of Sendo company. Use is subject to license terms.
- */
-
 package vn.icommerce.common.kafka;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -11,13 +5,6 @@ import org.springframework.kafka.core.KafkaOperations;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 
-/**
- * Implementation that uses Kafka as the message broker.
- *
- * <p>Created on 9/3/19.
- *
- * @author khoanguyenminh
- */
 @Component
 @ConditionalOnProperty(
     value = "common.infra.kafka.producer.enable",

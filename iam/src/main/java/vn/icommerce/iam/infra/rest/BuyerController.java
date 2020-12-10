@@ -24,11 +24,12 @@ import vn.icommerce.iam.app.buyer.CreateBuyerCmd;
 import vn.icommerce.iam.app.buyer.QueryBuyerAppService;
 import vn.icommerce.iam.app.buyertoken.BuyerTokenAppService;
 import vn.icommerce.iam.app.buyertoken.CreateBuyerTokenCmd;
+import vn.icommerce.iam.app.buyertoken.CreateBuyerTokenWithPasswordCmd;
 
 /**
  * This controller provides the {@code Account} manipulation API.
  *
- * @author thinh.nguyenhieu
+ *
  */
 @Api(tags = "buyer")
 @RestController
@@ -94,6 +95,20 @@ public class BuyerController {
   public ApiResp generate(@Valid @RequestBody CreateBuyerTokenCmd cmd, Locale locale) {
 
     var token = buyerTokenAppService.create(cmd);
+
+    return new ApiResp()
+        .setCode(REQUEST_PROCESSED_SUCCESSFULLY.value())
+        .setMessage(
+            messageSource.getMessage(REQUEST_PROCESSED_SUCCESSFULLY.valueAsString(), null, locale))
+        .setData(Collections.singletonMap("token", token));
+  }
+
+  @ApiOperation(value = "Generate a token by password")
+  @ApiResponses(@ApiResponse(code = 200, message = "OK", response = ApiResp.class))
+  @PostMapping("/v1/tokens/by-password")
+  public ApiResp generate(@Valid @RequestBody CreateBuyerTokenWithPasswordCmd cmd, Locale locale) {
+
+    var token = buyerTokenAppService.createWithPassword(cmd);
 
     return new ApiResp()
         .setCode(REQUEST_PROCESSED_SUCCESSFULLY.value())

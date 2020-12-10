@@ -19,9 +19,9 @@ import org.hibernate.annotations.Type;
 /**
  * This entity represents a outbox event
  *
- * <p>Created on 9/6/19.
  *
- * @author vanlh
+ *
+ *
  */
 @Accessors(chain = true)
 @Getter

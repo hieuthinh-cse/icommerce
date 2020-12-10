@@ -16,9 +16,9 @@ import org.hibernate.annotations.CreationTimestamp;
 /**
  * This entity represents a consumed event
  *
- * <p>Created on 9/6/19.
  *
- * @author vanlh
+ *
+ *
  */
 @Accessors(chain = true)
 @Getter

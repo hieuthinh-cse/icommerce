@@ -1,8 +1,4 @@
-/*
- * Copyright 2019 Sendo company. All Rights Reserved.
- *
- * This software is the proprietary information of Sendo company. Use is subject to license terms.
- */
+
 
 package vn.icommerce.common.elasticsearch.config;
 
@@ -24,9 +20,9 @@ import org.springframework.context.annotation.Primary;
 /**
  * Configuration for Elasticsearch REST high level client.
  *
- * <p>Created on 9/21/19.
  *
- * @author khoanguyenminh
+ *
+ *
  */
 @Configuration
 @Data

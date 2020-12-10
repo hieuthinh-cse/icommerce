@@ -1,8 +1,4 @@
-/*
- * Copyright 2019 Sendo company. All Rights Reserved.
- *
- * This software is the proprietary information of Sendo company. Use is subject to license terms.
- */
+
 
 package vn.icommerce.common.jackson;
 
@@ -21,9 +17,9 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 /**
  * Configures the object mapper.
  *
- * <p>Created on 12/7/19.
  *
- * @author khoanguyenminh
+ *
+ *
  */
 @Configuration
 public class JacksonConfig {

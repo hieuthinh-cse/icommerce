@@ -6,12 +6,10 @@ import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Component;
 import vn.icommerce.essync.app.OrderConsumer;
 import vn.icommerce.essync.app.ProductConsumer;
-import vn.icommerce.essync.app.ShippingAddressConsumer;
 import vn.icommerce.essync.app.ShoppingCartConsumer;
 import vn.icommerce.sharedkernel.domain.event.OrderCreatedEvent;
 import vn.icommerce.sharedkernel.domain.event.ProductCreatedEvent;
 import vn.icommerce.sharedkernel.domain.event.ProductUpdatedEvent;
-import vn.icommerce.sharedkernel.domain.event.ShippingAddressCreatedEvent;
 import vn.icommerce.sharedkernel.domain.event.ShoppingCartChangedEvent;
 import vn.icommerce.sharedkernel.domain.event.ShoppingCartCreatedEvent;
 import vn.icommerce.sharedkernel.domain.event.ShoppingCartUpdatedEvent;
@@ -29,25 +27,20 @@ public class KafkaElasticsearchGroupConsumer {
 
   private final OrderConsumer orderConsumer;
 
-  private final ShippingAddressConsumer shippingAddressConsumer;
-
   /**
    * Inject dependent services.
    *
-   * @param productConsumer         ...
-   * @param shoppingCartConsumer    ...
-   * @param orderConsumer           ...
-   * @param shippingAddressConsumer ...
+   * @param productConsumer      ...
+   * @param shoppingCartConsumer ...
+   * @param orderConsumer        ...
    */
   public KafkaElasticsearchGroupConsumer(
       ProductConsumer productConsumer,
       ShoppingCartConsumer shoppingCartConsumer,
-      OrderConsumer orderConsumer,
-      ShippingAddressConsumer shippingAddressConsumer) {
+      OrderConsumer orderConsumer) {
     this.productConsumer = productConsumer;
     this.shoppingCartConsumer = shoppingCartConsumer;
     this.orderConsumer = orderConsumer;
-    this.shippingAddressConsumer = shippingAddressConsumer;
   }
 
   @KafkaListener(topics = "#{kafkaConfig.productCreatedEventTopicId}")
@@ -95,14 +88,6 @@ public class KafkaElasticsearchGroupConsumer {
       OrderCreatedEvent event,
       Acknowledgment acknowledgment) {
     orderConsumer.indexById(event.getOrderId());
-    acknowledgment.acknowledge();
-  }
-
-  @KafkaListener(topics = "#{kafkaConfig.shippingAddressCreatedEventTopicId}")
-  public void onShippingAddressCreatedEvent(
-      ShippingAddressCreatedEvent event,
-      Acknowledgment acknowledgment) {
-    shippingAddressConsumer.indexById(event.getAddressId());
     acknowledgment.acknowledge();
   }
 }

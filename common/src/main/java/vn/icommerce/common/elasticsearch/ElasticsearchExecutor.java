@@ -1,8 +1,4 @@
-/*
- * Copyright 2019 Sendo company. All Rights Reserved.
- *
- * This software is the proprietary information of Sendo company. Use is subject to license terms.
- */
+
 
 package vn.icommerce.common.elasticsearch;
 
@@ -39,9 +35,9 @@ import vn.icommerce.common.jackson.JacksonExecutor;
 /**
  * Implementation that uses the Elasticsearch engine to perform the business.
  *
- * <p>Created on 9/21/19.
  *
- * @author khoanguyenminh
+ *
+ *
  */
 @Slf4j
 @Component

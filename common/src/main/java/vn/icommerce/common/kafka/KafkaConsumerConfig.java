@@ -1,8 +1,4 @@
-/*
- * Copyright 2019 Sendo company. All Rights Reserved.
- *
- * This software is the proprietary information of Sendo company. Use is subject to license terms.
- */
+
 
 package vn.icommerce.common.kafka;
 
@@ -46,9 +42,9 @@ import vn.icommerce.common.brave.BraveExecutor;
 /**
  * Configuration for Kafka cluster.
  *
- * <p>Created on 9/3/19.
  *
- * @author khoanguyenminh
+ *
+ *
  */
 @Data
 @EnableKafka
@@ -68,7 +64,7 @@ public class KafkaConsumerConfig {
   /**
    * The id of the Hermes consumer group.
    *
-   * <p>See {@link ConsumerConfig#GROUP_ID_CONFIG}.
+   *
    */
   private String groupId = "commonGroup";
 

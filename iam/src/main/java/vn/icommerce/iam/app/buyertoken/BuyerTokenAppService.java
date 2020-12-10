@@ -14,4 +14,6 @@ public interface BuyerTokenAppService {
    * @return the token if successfully
    */
   String create(CreateBuyerTokenCmd cmd);
+
+  String createWithPassword(CreateBuyerTokenWithPasswordCmd cmd);
 }

@@ -1,9 +1,3 @@
-/*
- * Copyright 2020 Sendo company. All Rights Reserved.
- *
- * This software is the proprietary information of Sendo company. Use is subject to license terms.
- */
-
 package vn.icommerce.common.springretry;
 
 import java.io.PrintWriter;
@@ -18,11 +12,6 @@ import vn.icommerce.common.outbox.JpaOutboxRepository;
 import vn.icommerce.common.outbox.Outbox;
 import vn.icommerce.common.springtx.SpringTxExecutor;
 
-/**
- * <p>Created on 4/26/20.
- *
- * @author khoanguyenminh
- */
 @Slf4j
 @Component
 public class NotificationRetryListener extends RetryListenerSupport {

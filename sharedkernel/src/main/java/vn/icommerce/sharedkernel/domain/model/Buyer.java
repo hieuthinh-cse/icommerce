@@ -51,9 +51,9 @@ public class Buyer {
   @Column(name = "email", nullable = false, updatable = false, unique = true)
   private String email;
 
-//  @Column(name = "password", length = 60)
-//  @JsonIgnore
-//  private String password;
+  @Column(name = "password", length = 60)
+  @JsonIgnore
+  private String password;
 
   @Column(name = "buyer_name", nullable = false)
   private String accountName;
@@ -79,4 +79,8 @@ public class Buyer {
   @Column(name = "updated_by", nullable = false)
   @LastModifiedBy
   private String updatedBy;
+
+  public boolean active() {
+    return status == BuyerStatus.ACTIVE;
+  }
 }

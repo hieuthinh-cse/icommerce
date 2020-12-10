@@ -1,9 +1,3 @@
-/*
- * Copyright 2019 Sendo company. All Rights Reserved.
- *
- * This software is the proprietary information of Sendo company. Use is subject to license terms.
- */
-
 package vn.icommerce.sharedkernel.app.component;
 
 import java.util.Collections;
@@ -14,13 +8,6 @@ import javax.validation.constraints.Size;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-/**
- * Query object having info for the search functionality.
- *
- * <p>Created on 8/20/19.
- *
- * @author khoanguyenminh
- */
 @Accessors(chain = true)
 @Data
 @QueryConstraint

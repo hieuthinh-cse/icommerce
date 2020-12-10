@@ -87,7 +87,7 @@ public class SecurityConfig {
           .antMatcher("/v?/**")
           .authorizeRequests()
           .antMatchers(
-              "/v?/tokens")
+              "/v?/tokens/**")
           .permitAll()
           .antMatchers(HttpMethod.GET, "/v?/me")
           .authenticated()

@@ -25,9 +25,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 /**
  * Config swagger
  *
- * <p>Created on 8/28/19.
  *
- * @author hungphamchanh
+ *
+ *
  */
 @Configuration
 @EnableSwagger2

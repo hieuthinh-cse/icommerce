@@ -24,7 +24,7 @@ public class ElasticsearchImportFromDbCmd extends AbstractElasticsearchCmd {
   ) {
     super(null);
 
-    esIndexServiceFactory.put("buyer", buyerEsImportService);
+//    esIndexServiceFactory.put("buyer", buyerEsImportService);
     esIndexServiceFactory.put("shopping_cart", shoppingCartEsImportService);
     esIndexServiceFactory.put("product", productEsImportService);
   }

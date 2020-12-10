@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vladmihalcea.hibernate.type.util.ObjectMapperSupplier;
 
 /**
- * @author tuyenpham
+ *
  */
 public class HibernateAwareObjectMapper implements ObjectMapperSupplier {
 
