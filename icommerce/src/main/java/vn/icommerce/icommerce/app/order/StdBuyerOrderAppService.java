@@ -12,12 +12,11 @@ import vn.icommerce.sharedkernel.domain.event.ShoppingCartChangedEvent;
 import vn.icommerce.sharedkernel.domain.exception.DomainException;
 import vn.icommerce.sharedkernel.domain.model.DomainCode;
 import vn.icommerce.sharedkernel.domain.model.Order;
-import vn.icommerce.sharedkernel.domain.model.ShippingAddress;
 import vn.icommerce.sharedkernel.domain.model.OrderStatus;
+import vn.icommerce.sharedkernel.domain.model.ShippingAddress;
 import vn.icommerce.sharedkernel.domain.model.ShoppingCart;
 import vn.icommerce.sharedkernel.domain.model.ShoppingCartItem;
 import vn.icommerce.sharedkernel.domain.model.ShoppingCartStatus;
-import vn.icommerce.sharedkernel.domain.repository.BuyerRepository;
 import vn.icommerce.sharedkernel.domain.repository.OrderRepository;
 import vn.icommerce.sharedkernel.domain.repository.ProductRepository;
 import vn.icommerce.sharedkernel.domain.repository.ShippingAddressRepository;
@@ -33,8 +32,6 @@ public class StdBuyerOrderAppService implements BuyerOrderAppService {
 
   private final OrderRepository orderRepository;
 
-  private final BuyerRepository buyerRepository;
-
   private final ShippingAddressRepository shippingAddressRepository;
 
   private final BuyerInfoHolder buyerInfoHolder;
@@ -47,7 +44,6 @@ public class StdBuyerOrderAppService implements BuyerOrderAppService {
       ProductRepository productRepository,
       ShoppingCartRepository shoppingCartRepository,
       OrderRepository orderRepository,
-      BuyerRepository buyerRepository,
       ShippingAddressRepository shippingAddressRepository,
       BuyerInfoHolder buyerInfoHolder,
       TxManager txManager,
@@ -55,7 +51,6 @@ public class StdBuyerOrderAppService implements BuyerOrderAppService {
     this.productRepository = productRepository;
     this.shoppingCartRepository = shoppingCartRepository;
     this.orderRepository = orderRepository;
-    this.buyerRepository = buyerRepository;
     this.shippingAddressRepository = shippingAddressRepository;
     this.buyerInfoHolder = buyerInfoHolder;
     this.txManager = txManager;
@@ -64,11 +59,11 @@ public class StdBuyerOrderAppService implements BuyerOrderAppService {
 
   @Override
   public CreateOrderDto createOrder(CreateOrderCmd cmd) {
-    log.info("method: createOrder");
+    log.info("method: createOrder, cmd: {}", cmd);
     var buyerId = buyerInfoHolder.getBuyerId();
 
     var domainEvent = txManager.doInTx(() -> {
-      var address = shippingAddressRepository.requireDefaultByBuyerId(buyerId);
+//      var address = shippingAddressRepository.requireDefaultByBuyerId(buyerId);
 
       var cart = shoppingCartRepository.requireCurrentCart(buyerId);
 
@@ -93,10 +88,10 @@ public class StdBuyerOrderAppService implements BuyerOrderAppService {
           .setPaymentMethod(cmd.getPaymentMethod())
           .setShippingAddress(
               new ShippingAddress()
-                  .setName(address.getName())
-                  .setRegion(address.getRegion())
-                  .setPhoneNumber(address.getPhoneNumber())
-                  .setStreet(address.getStreet())
+                  .setName(cmd.getName())
+                  .setRegion(cmd.getRegion())
+                  .setPhoneNumber(cmd.getPhoneNumber())
+                  .setStreet(cmd.getStreet())
           );
 
       cart.setStatus(ShoppingCartStatus.COMPLETED);

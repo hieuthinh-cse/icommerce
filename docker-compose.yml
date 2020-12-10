@@ -3,24 +3,24 @@ version: "3.3"
 networks:
   i_network:
     driver: bridge
-  iam_network:
-    driver: bridge
+#  iam_network:
+#    driver: bridge
 
 services:
 
-#  iam_postgresql:
-#    image: postgres:11.5
-#    container_name: iam-postgres
-#    ports:
-#      - "5432:5432"
-#    environment:
-#      - "POSTGRES_USER=u_iam"
-#      - "POSTGRES_PASSWORD=123456789"
-#      - "POSTGRES_DB=iam"
-#    volumes:
-#      - ./iam/db/init.sql:/docker-entrypoint-initdb.d/schema.sql
-#    networks:
-#      - i_am
+  iam_postgresql:
+    image: postgres:11.5
+    container_name: iam-postgres
+    ports:
+      - "4432:5432"
+    environment:
+      - "POSTGRES_USER=u_iam"
+      - "POSTGRES_PASSWORD=123456789"
+      - "POSTGRES_DB=iam"
+    volumes:
+      - ./iam/db/init.sql:/docker-entrypoint-initdb.d/schema.sql
+    networks:
+      - i_network
 
   postgresql:
     image: postgres:11.5
@@ -39,6 +39,7 @@ services:
     container_name: iam-es
     ports:
       - "9200:9200"
+      - "9300:9300"
     environment:
       - "discovery.type=single-node"
     networks:
@@ -75,28 +76,3 @@ services:
       - zookeeper
     networks:
       - i_network
-
-#  products:
-##    build:
-##      context: ./
-##      dockerfile: Dockerfile
-#    image: 'sample:dev'
-#    container_name: 'nab_icommerce_products'
-#    ports:
-#      - 8080:8080
-#    restart: unless-stopped
-##    volumes:
-##      - ./:/
-##    env_file: ./products/.env
-##    environment:
-##      MONGO_URL: mongodb://products_db
-##      MONGO_USER: ${PRODUCT_DB_USERNAME}
-##      MONGO_PASSWORD: ${PRODUCT_DB_PASSWORD}
-##      MONGO_DB: ${PRODUCT_DB_DATABASE}
-##      AMQP_URL: amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@rabbitmq
-#    command: java -jar dbtool-1.0.0.jar
-#    depends_on:
-#      - postgresql
-#      - elasticsearch
-#    networks:
-#      - i_network

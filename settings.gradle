@@ -1,6 +1,7 @@
 include 'icommerce'
-include 'iam'
 include 'outbox'
+include 'iam'
+include 'iamoutbox'
 include 'essync'
 include 'common'
 include 'sharedkernel'

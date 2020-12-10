@@ -4,7 +4,7 @@
  * This software is the proprietary information of Sendo company. Use is subject to license terms.
  */
 
-package vn.icommerce.outbox;
+package vn.icommerce.iamoutbox;
 
 import java.util.Objects;
 import java.util.TimeZone;

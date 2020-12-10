@@ -1,0 +1,52 @@
+version: "3.3"
+
+services:
+
+  outbox:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: 'nab_outbox'
+    env_file: .env
+    restart: unless-stopped
+    network_mode: host
+
+  essync:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: 'nab_essync'
+    entrypoint: java -jar -Dspring.profiles.active=deploymentEnv essync-1.0.0.jar
+    env_file: .env
+    restart: unless-stopped
+    network_mode: host
+#
+  icommerce:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: 'nab_icommerce'
+    entrypoint: java -jar -Dspring.profiles.active=deploymentEnv icommerce-1.0.0.jar
+    env_file: .env
+    restart: unless-stopped
+    network_mode: host
+
+  iam:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: 'nab_iam'
+    entrypoint: java -jar -Dspring.profiles.active=deploymentEnv iam-1.0.0.jar
+    env_file: .env
+    restart: unless-stopped
+    network_mode: host
+
+  iam_outbox:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: 'nab_iam_outbox'
+    entrypoint: java -jar -Dspring.profiles.active=deploymentEnv iamoutbox-1.0.0.jar
+    env_file: .env
+    restart: unless-stopped
+    network_mode: host

@@ -52,3 +52,5 @@ gradle-app.setting
 /.nb-gradle/
 **/lombok.config
 **/application-local.properties
+
+.env
