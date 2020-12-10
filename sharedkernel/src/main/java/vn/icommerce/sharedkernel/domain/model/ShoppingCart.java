@@ -1,6 +1,3 @@
-/**
- *
- */
 package vn.icommerce.sharedkernel.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;

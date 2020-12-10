@@ -93,22 +93,12 @@ public class ElasticsearchMigrateCmd extends AbstractElasticsearchCmd {
 
   @Override
   public void run() {
-    if (optionSet.contains("*")) {
-      Stream
-          .of(getResources())
-          .map(this::toInputFile)
-          .map(this::toEsSchema)
-          .map(this::toEsCreateIndexRequest)
-          .forEach(this::createEsIndex);
-    } else {
-      optionSet
-          .stream()
-          .map(this::getResource)
-          .map(this::toInputFile)
-          .map(this::toEsSchema)
-          .map(this::toEsCreateIndexRequest)
-          .forEach(this::createEsIndex);
-    }
+    Stream
+        .of(getResources())
+        .map(this::toInputFile)
+        .map(this::toEsSchema)
+        .map(this::toEsCreateIndexRequest)
+        .forEach(this::createEsIndex);
   }
 
   @Accessors(chain = true)
