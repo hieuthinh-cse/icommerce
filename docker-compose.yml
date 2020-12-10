@@ -3,8 +3,6 @@ version: "3.3"
 networks:
   i_network:
     driver: bridge
-#  iam_network:
-#    driver: bridge
 
 services:
 
@@ -40,20 +38,6 @@ services:
       - "9200:9200"
     networks:
       - i_network
-
-#  outbox:
-#    build:
-#      context: ./
-#      dockerfile: Dockerfile
-#    container_name: 'nab_outbox'
-#    env_file: .env
-#    restart: unless-stopped
-#    networks:
-#      - i_network
-#    depends_on:
-#      - elasticsearch
-#      - postgresql
-#    network_mode: host
 
   redis:
     image: redis:latest

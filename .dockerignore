@@ -2,6 +2,7 @@
 .idea
 
 assets
+manual
 
 .gradle/
 build/
@@ -21,5 +22,6 @@ Dockerfile
 Dockerfile.prod
 docker-compose.yml
 docker-compose-service.yml
+docker-compose-service-mac.yml
 
 README.md

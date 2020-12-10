@@ -22,6 +22,7 @@
 ![Please click here if it does not show](https://drive.google.com/uc?export=view&id=1GsO7O4JmXc3MKpcMTrWgm_aLvy4LoFT0)
 
 - To guarantee the data integrity when exchanging the messages via the message broker, we apply the outbox pattern so that no message would be loss in case of intermittent network, service/worker failure, ... The worker that handles this duty is named outbox.
+
 ![Please click here if it does not show](https://drive.google.com/uc?export=view&id=1e_Fg9nBq2KRkypH4iCaP9Id_W8UCqzMd)
 ### Modules
 * icommerce:
@@ -86,8 +87,8 @@ Port: 2181
 > docker-compose up
 ```
 
-* After all infra boot up, start all necessary services as containers. There are five services: icommerce, outbox, essync, iam, iamoutbox
-* Note: if you run this on MacOS, you may have encountered [a known error of network](https://stackoverflow.com/questions/52555007/docker-mac-alternative-to-net-host ) 
+* After all infra boot up, start all necessary services as containers (may takes several minutes in the first build). 
+* Note: if you run this on MacOS, you may have encountered [a known error of network](https://github.com/docker/for-mac/issues/2716 ) . Skip to [`manual`](#manual) in the end of readme.
 ```
 > docker-compose -f docker-compose-service.yml up
 ```
@@ -195,58 +196,92 @@ curl -L -X GET 'http://localhost:9380/v1/me/orders' \
 ```
 
 ## Test
-### **Products service**
-#### Requires:
-Start necessary services. This may take several seconds to fully start.
+
+#### Local:
+
+* Start necessary infrastructure.
 ```
-> docker-compose up -d rabbitmq products_db
+> docker-compose up
 ```
-Have environment config for products service if not exist
+
+* Copy the profile env:
+
+```shell script
+cp ./local/application-local.properties ./dbtool/src/main/resources/
+cp ./local/application-local.properties ./outbox/src/main/resources/
+cp ./local/application-local.properties ./essync/src/main/resources/
+cp ./local/application-local.properties ./icommerce/src/main/resources/
+cp ./local/application-local.properties ./iam/src/main/resources/
+cp ./local/application-local.properties ./iamoutbox/src/main/resources/
 ```
-> cp products/.env_sample products/.env
-``` 
-#### Run test cases
+
 * Run with unit/integration tests:
 
 ```shell script
 $ ./gradlew clean build
 ```
 
+#### CI-CD (infrastructure will be create in code):
 * In order to achieve isolation between test runs in CI pipeline (Jenkins), the test suite is set up to start the dependent services (MySQL, ...) in the separate Docker instances. After the build process is done (whether successful or not), the Docker instances will be stopped & removed, leaving their images in the local Docker registry. This configuration is recommended for the CI process only. For daily development tasks please use your persistent instances to get the fast feedback cycle. Should you want to have a taste of how it works on your local machine then issue the following command:
 
 ```shell script
 $ ./gradlew clean build -Pit.pipelineEnv=true
 ```
 
-* Verify: 
+#### Verify: 
 
 If everything goes fine you can get the Test Coverage Report by opening the `./build/reports/jacoco/jacocoMergedReport/html/index.html` file in your favorite browser.
 
 If you have any connection issue, wait for few seconds for other services to be started
 
-### Manual start the ICommerce service
+### <a name="manual"></a>Manual start the ICommerce and Iam service
+Requires: Java 11 (openjdk@1.11.0)
+
+Recommend: use [jabba](https://github.com/shyiko/jabba) to switch jdk
+
+* Using Gradle task:
+1. Profile env
+```shell script
+cp ./local/application-local.properties ./dbtool/src/main/resources/
+cp ./local/application-local.properties ./outbox/src/main/resources/
+cp ./local/application-local.properties ./essync/src/main/resources/
+cp ./local/application-local.properties ./icommerce/src/main/resources/
+cp ./local/application-local.properties ./iam/src/main/resources/
+cp ./local/application-local.properties ./iamoutbox/src/main/resources/
+```
+
+2. Migrate schema/data for PostgreSQL database and keep the index data in Elasticsearch synchronized with PostgreSQL:
+
+```shell script
+$ ./gradlew :dbtool:bootRun -Pargs="fC fM eC eM eI --index=*"
+```
+3. Start services (in multiple terminal):
+
+```shell script
+./gradlew :outbox:bootRun
+./gradlew :essync:bootRun
+./gradlew :icommerce:bootRun
+./gradlew :iam:bootRun
+./gradlew :iamoutbox:bootRun
+``` 
+
+#### Other ways:
 
 * Using IntelliJ IDEA (recommended for daily development tasks):
 
 Import this project as `Gradle` type & run the `./icommerce/icommerce/src/main/java/vn/icommerce/icommerce/ICommerceApp.java` class.
 
-* Using Gradle task:
-
-```shell script
-$ ./gradlew :icommerce:bootRun
-``` 
-
 * Using Java command line (used after build):
 
 ```shell script
+$ java -jar ./outbox/build/libs/outbox-1.0.0.jar
+$ java -jar ./essync/build/libs/essync-1.0.0.jar
 $ java -jar ./icommerce/build/libs/icommerce-1.0.0.jar
+$ java -jar ./iam/build/libs/iam-1.0.0.jar
+$ java -jar ./iamoutbox/build/libs/iamoutbox-1.0.0.jar
 ```
 
 
 
-* Migrate schema/data for PostgreSQL database and keep the index data in Elasticsearch synchronized with PostgreSQL:
 
-```shell script
-$ ./gradlew :dbtool:bootRun -Pargs="fC fM eC eM eI --index=*"
-```
 

@@ -20,7 +20,7 @@ services:
     env_file: .env
     restart: unless-stopped
     network_mode: host
-#
+
   icommerce:
     build:
       context: ./
