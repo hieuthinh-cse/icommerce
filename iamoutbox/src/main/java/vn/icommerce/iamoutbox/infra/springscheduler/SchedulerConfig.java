@@ -4,7 +4,7 @@
  * This software is the proprietary information of Sendo company. Use is subject to license terms.
  */
 
-package vn.icommerce.outbox.infra.springscheduler;
+package vn.icommerce.iamoutbox.infra.springscheduler;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

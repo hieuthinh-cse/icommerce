@@ -1,4 +1,4 @@
-package vn.icommerce.outbox.infra.springscheduler;
+package vn.icommerce.iamoutbox.infra.springscheduler;
 
 import static vn.icommerce.common.brave.BraveExecutor.CORRELATION_ID;
 import static vn.icommerce.common.brave.BraveExecutor.SPAN_ID;

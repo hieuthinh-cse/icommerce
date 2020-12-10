@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.UUID;
+import javax.validation.Valid;
 import org.springframework.context.MessageSource;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,7 +47,7 @@ public class BuyerOrderController {
   @ApiOperation(value = "Create an order")
   @ApiResponses(@ApiResponse(code = 200, message = "OK", response = ApiResp.class))
   @PostMapping("/v1/me/orders")
-  public ApiResp createOrder(@RequestBody CreateOrderCmd cmd, Locale locale) {
+  public ApiResp createOrder(@Valid @RequestBody CreateOrderCmd cmd, Locale locale) {
     var response = buyerOrderAppService.createOrder(cmd);
 
     return new ApiResp()

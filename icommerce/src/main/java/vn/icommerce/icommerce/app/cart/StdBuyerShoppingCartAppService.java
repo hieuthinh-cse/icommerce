@@ -13,7 +13,6 @@ import vn.icommerce.sharedkernel.domain.model.DomainCode;
 import vn.icommerce.sharedkernel.domain.model.ShoppingCart;
 import vn.icommerce.sharedkernel.domain.model.ShoppingCartItem;
 import vn.icommerce.sharedkernel.domain.model.ShoppingCartStatus;
-import vn.icommerce.sharedkernel.domain.repository.BuyerRepository;
 import vn.icommerce.sharedkernel.domain.repository.ProductRepository;
 import vn.icommerce.sharedkernel.domain.repository.ShoppingCartRepository;
 
@@ -25,8 +24,6 @@ public class StdBuyerShoppingCartAppService implements BuyerShoppingCartAppServi
 
   private final ShoppingCartRepository shoppingCartRepository;
 
-  private final BuyerRepository buyerRepository;
-
   private final BuyerInfoHolder buyerInfoHolder;
 
   private final TxManager txManager;
@@ -36,13 +33,11 @@ public class StdBuyerShoppingCartAppService implements BuyerShoppingCartAppServi
   public StdBuyerShoppingCartAppService(
       ProductRepository productRepository,
       ShoppingCartRepository shoppingCartRepository,
-      BuyerRepository buyerRepository,
       BuyerInfoHolder buyerInfoHolder, TxManager txManager,
       OutboxEngine outboxEngine
   ) {
     this.productRepository = productRepository;
     this.shoppingCartRepository = shoppingCartRepository;
-    this.buyerRepository = buyerRepository;
     this.buyerInfoHolder = buyerInfoHolder;
     this.txManager = txManager;
     this.outboxEngine = outboxEngine;
@@ -52,7 +47,6 @@ public class StdBuyerShoppingCartAppService implements BuyerShoppingCartAppServi
   public Long createCart(CreateCartCmd cmd) {
 
     var shoppingCart = txManager.doInTx(() -> {
-      buyerRepository.requireById(cmd.getBuyerId());
 
       shoppingCartRepository
           .findByBuyerIdAndStatus(cmd.getBuyerId(), ShoppingCartStatus.PROCESSING)
@@ -122,8 +116,6 @@ public class StdBuyerShoppingCartAppService implements BuyerShoppingCartAppServi
     var buyerId = buyerInfoHolder.getBuyerId();
 
     txManager.doInTx(() -> {
-      buyerRepository.requireById(buyerId);
-
       var cart = shoppingCartRepository.requireCurrentCart(buyerId);
 
       for (var item : cart.getItems()) {
@@ -149,8 +141,6 @@ public class StdBuyerShoppingCartAppService implements BuyerShoppingCartAppServi
     var buyerId = buyerInfoHolder.getBuyerId();
 
     txManager.doInTx(() -> {
-      buyerRepository.requireById(buyerId);
-
       var cart = shoppingCartRepository.requireCurrentCart(buyerId);
 
       cart.getItems()

@@ -4,7 +4,7 @@
  * This software is the proprietary information of Sendo company. Use is subject to license terms.
  */
 
-package vn.icommerce.outbox.infra.springtx;
+package vn.icommerce.iamoutbox.infra.springtx;
 
 import javax.persistence.EntityManagerFactory;
 import org.springframework.context.annotation.Bean;

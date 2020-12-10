@@ -10,11 +10,6 @@ import org.springframework.context.annotation.Configuration;
 public class TokenConfig {
 
   /**
-   * Max retries for failed log in by pincode
-   */
-  private int maxAuthRetries = 5;
-
-  /**
    * Token expiration duration in second. Default: 30 minutes.
    */
   private long expirationInS = 30 * 60;
