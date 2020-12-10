@@ -14,7 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchAutoConfiguration;
 
 /**
- * This is the entry point of the IamOutbox app.
+ * This is the entry point of the Outbox app.
  *
  * <p>Created on 8/20/19.
  */

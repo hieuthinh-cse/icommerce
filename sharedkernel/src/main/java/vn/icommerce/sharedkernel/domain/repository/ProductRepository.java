@@ -1,11 +1,6 @@
-/*
- * Copyright 2019 Sendo company. All Rights Reserved.
- *
- * This software is the proprietary information of Sendo company. Use is subject to license terms.
- */
-
 package vn.icommerce.sharedkernel.domain.repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import vn.icommerce.sharedkernel.domain.model.Product;
@@ -38,4 +33,5 @@ public interface ProductRepository {
    */
   Optional<Product> findById(Long productId);
 
+  List<Product> findByIdIn(List<Long> productIds);
 }

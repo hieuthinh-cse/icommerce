@@ -1,0 +1,38 @@
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 1
+  },
+  "mappings": {
+    "dynamic": false,
+    "properties": {
+      "addressId": {
+        "type": "keyword"
+      },
+      "buyerId": {
+        "type": "keyword"
+      },
+      "name": {
+        "type": "keyword"
+      },
+      "default_address": {
+        "type": "boolean"
+      },
+      "phone_number": {
+        "type": "keyword"
+      },
+      "cityCode": {
+        "type": "keyword"
+      },
+      "address": {
+        "type": "keyword"
+      },
+      "createdAt": {
+        "type": "date"
+      },
+      "updatedAt": {
+        "type": "date"
+      }
+    }
+  }
+}

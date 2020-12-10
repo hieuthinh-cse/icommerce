@@ -8,6 +8,8 @@ import vn.icommerce.sharedkernel.app.component.OutboxEngine;
 import vn.icommerce.sharedkernel.app.component.TxManager;
 import vn.icommerce.sharedkernel.domain.event.ShoppingCartCreatedEvent;
 import vn.icommerce.sharedkernel.domain.event.ShoppingCartUpdatedEvent;
+import vn.icommerce.sharedkernel.domain.exception.DomainException;
+import vn.icommerce.sharedkernel.domain.model.DomainCode;
 import vn.icommerce.sharedkernel.domain.model.ShoppingCart;
 import vn.icommerce.sharedkernel.domain.model.ShoppingCartItem;
 import vn.icommerce.sharedkernel.domain.model.ShoppingCartStatus;
@@ -51,6 +53,12 @@ public class StdBuyerShoppingCartAppService implements BuyerShoppingCartAppServi
 
     var shoppingCart = txManager.doInTx(() -> {
       buyerRepository.requireById(cmd.getBuyerId());
+
+      shoppingCartRepository
+          .findByBuyerIdAndStatus(cmd.getBuyerId(), ShoppingCartStatus.PROCESSING)
+          .ifPresent((c) -> {
+            throw new DomainException(DomainCode.PROCESSING_CART_EXISTING, c.getShoppingCartId());
+          });
 
       var cart = new ShoppingCart()
           .setBuyerId(cmd.getBuyerId())
@@ -97,7 +105,6 @@ public class StdBuyerShoppingCartAppService implements BuyerShoppingCartAppServi
             .setQuantity(cmd.getQuantity())
             .setPrice(product.getProductPrice())
             .setShoppingCart(cart);
-        ;
         cart.getItems().add(item);
       }
 
@@ -148,6 +155,11 @@ public class StdBuyerShoppingCartAppService implements BuyerShoppingCartAppServi
 
       cart.getItems()
           .removeIf(item -> item.getProductId().equals(cmd.getProductId()));
+
+      outboxEngine.create(
+          new ShoppingCartUpdatedEvent()
+              .setCartId(cart.getShoppingCartId())
+      );
 
       return cart;
     });

@@ -18,7 +18,7 @@ import vn.icommerce.common.outbox.OutboxMarker;
 import vn.icommerce.common.springtx.SpringTxMarker;
 
 /**
- * This is the configuration of the IamOutbox app.
+ * This is the configuration of the Outbox app.
  *
  * <p>Created on 8/20/19.
  */

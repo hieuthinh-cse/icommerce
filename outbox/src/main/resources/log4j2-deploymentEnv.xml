@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration>
   <Properties>
-    <Property name="IAMOUTBOX_SERVICE">iamoutbox</Property>
-    <Property name="console-layout-pattern">[%d{ISO8601_OFFSET_DATE_TIME_HHCMM}] [%level] [${env:IAMOUTBOX_SERVICE},%t, %X{traceId} , %X{spanId} , %X{correlation_id} ] [%c{1.}] [%replace{%msg}{\n}{}%ex{separator(#)}]%n</Property>
+    <Property name="OUTBOX_SERVICE">outbox</Property>
+    <Property name="console-layout-pattern">[%d{ISO8601_OFFSET_DATE_TIME_HHCMM}] [%level] [${env:OUTBOX_SERVICE},%t, %X{traceId} , %X{spanId} , %X{correlation_id} ] [%c{1.}] [%replace{%msg}{\n}{}%ex{separator(#)}]%n</Property>
   </Properties>
   <Appenders>
     <Console name="Console" target="SYSTEM_OUT">

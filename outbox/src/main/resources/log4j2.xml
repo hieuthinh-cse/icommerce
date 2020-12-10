@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration>
   <Properties>
-    <Property name="IAMOUTBOX_SERVICE">iamoutbox</Property>
-    <Property name="console-layout-pattern">%blue{%d{ISO8601}} %highlight{%-5level} %magenta{[${env:IAMOUTBOX_SERVICE},%t, %X{traceId} , %X{spanId} , %X{correlation_id} ]} %C{1.}(%L): - %msg%n</Property>
+    <Property name="OUTBOX_SERVICE">outbox</Property>
+    <Property name="console-layout-pattern">%blue{%d{ISO8601}} %highlight{%-5level} %magenta{[${env:OUTBOX_SERVICE},%t, %X{traceId} , %X{spanId} , %X{correlation_id} ]} %C{1.}(%L): - %msg%n</Property>
   </Properties>
   <Appenders>
     <Console name="Console" target="SYSTEM_OUT">

@@ -8,6 +8,7 @@ package vn.icommerce.sharedkernel.domain.repository;
 
 import java.util.Optional;
 import vn.icommerce.sharedkernel.domain.model.ShoppingCart;
+import vn.icommerce.sharedkernel.domain.model.ShoppingCartStatus;
 
 /**
  * This repository manages the persistence logic of {@link ShoppingCart} entity.
@@ -23,6 +24,8 @@ public interface ShoppingCartRepository {
    */
   ShoppingCart requireById(Long cartId);
 
+  Optional<ShoppingCart> findByBuyerIdAndStatus(Long buyerId, ShoppingCartStatus status);
+
   ShoppingCart requireCurrentCart(Long buyerId);
 
   /**
@@ -35,9 +38,9 @@ public interface ShoppingCartRepository {
   /**
    * Finds the account given the wallet id.
    *
-   * @param accountId the wallet id to find
+   * @param cartId the wallet id to find
    * @return the account if found
    */
-  Optional<ShoppingCart> findById(Long accountId);
+  Optional<ShoppingCart> findById(Long cartId);
 
 }

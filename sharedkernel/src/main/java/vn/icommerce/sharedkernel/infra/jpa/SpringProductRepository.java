@@ -1,11 +1,6 @@
-/*
- * Copyright 2020 Sendo company. All Rights Reserved.
- *
- * This software is the proprietary information of Sendo company. Use is subject to license terms.
- */
-
 package vn.icommerce.sharedkernel.infra.jpa;
 
+import java.util.List;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import vn.icommerce.sharedkernel.domain.model.Product;
@@ -16,4 +11,5 @@ import vn.icommerce.sharedkernel.domain.model.Product;
  */
 public interface SpringProductRepository extends JpaRepository<Product, Long> {
 
+  List<Product> findByProductIdIn(List<Long> productIds);
 }

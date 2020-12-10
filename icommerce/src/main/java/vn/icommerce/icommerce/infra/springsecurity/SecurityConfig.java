@@ -19,13 +19,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import vn.icommerce.common.jackson.JacksonExecutor;
 
-/**
- * Configures the security for this service.
- *
- * <p>Created on 11/21/19.
- *
- * @author khoanguyenminh
- */
 @Data
 @EnableWebSecurity
 @EnableJpaAuditing(
@@ -96,7 +89,9 @@ public class SecurityConfig {
           .permitAll()
           .antMatchers(HttpMethod.GET, "/v?/me/**")
           .authenticated()
-          .antMatchers(HttpMethod.POST, "/v?/me/carts/**")
+          .antMatchers(HttpMethod.POST, "/v?/me/**")
+          .authenticated()
+          .antMatchers(HttpMethod.PUT, "/v?/me/**")
           .authenticated()
           .anyRequest().denyAll()
           .and()

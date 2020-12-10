@@ -1,5 +1,7 @@
 package vn.icommerce.sharedkernel.infra.jpa;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import javax.persistence.EntityManager;
@@ -52,5 +54,24 @@ public class JpaProductRepository implements ProductRepository {
     log.info("method: findById, productId: {} , productOptional: {}", productId, productOptional);
 
     return productOptional;
+  }
+
+  @Override
+  public List<Product> findByIdIn(List<Long> productIds) {
+    List<Product> productList;
+
+    if (productIds.isEmpty()) {
+      productList = Collections.emptyList();
+    } else {
+      productList = springProductRepository
+          .findByProductIdIn(productIds);
+    }
+
+    log.info("method: findByIdIn, productIdsSize: {} , productSize: {}",
+        productIds.size(),
+        productList.size());
+
+    return productList;
+
   }
 }

@@ -22,7 +22,6 @@ import lombok.experimental.Accessors;
 @Data
 public class UpdateProductCmd {
 
-  @NotNull
   private Long productId;
 
   @NotBlank
